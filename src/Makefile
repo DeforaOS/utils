@@ -2,15 +2,16 @@ TARGETS	= basename cat chgrp chmod chown cksum cmp cp df dirname du echo false f
 PREFIX	= /usr/local
 DESTDIR	=
 BINDIR	= $(PREFIX)/bin
-CC	?= cc
-CPPFLAGSF?=
-CPPFLAGS?=
+SBINDIR	= $(PREFIX)/sbin
+CC	= cc
+CPPFLAGSF=
+CPPFLAGS=
 CFLAGSF	= -W
 CFLAGS	= -Wall -g -O2 -pedantic
-RM	?= rm -f
-LN	?= ln -f
-MKDIR	?= mkdir -p
-INSTALL	?= install
+RM	= rm -f
+LN	= ln -f
+MKDIR	= mkdir -p
+INSTALL	= install
 
 
 all: $(TARGETS)
