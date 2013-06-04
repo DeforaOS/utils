@@ -19,6 +19,7 @@
 #variables
 CC="../../../../../Devel/src/c99/C99-git/src/c99"
 DOT="dot -Tpng:cairo:gd"
+MAKE="make -k"
 RM="rm -f"
 VIEW="view"
 
@@ -26,7 +27,7 @@ VIEW="view"
 #functions
 #main
 $RM ../src/*.o.png
-(cd '../src' && make -k CC="$CC" CPPFLAGS="-M graph -D__ELF__ -D__i386__" CFLAGS= distclean all)
+(cd '../src' && $MAKE CC="$CC" CPPFLAGS="-M graph -D__ELF__ -D__i386__" CFLAGS= distclean all)
 for i in ../src/*.o; do
 	$DOT -o "$i.png" "$i"
 done
