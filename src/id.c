@@ -54,11 +54,14 @@ static int _id_error(char const * message, int ret)
 static int _id_G(char const * user, int flagn)
 {
 	struct group * gr;
-	char * u;
+	struct passwd * pw;
+	char * g;
 	char ** p;
 
 	if(user == NULL)
 	{
+		if((pw = getpwuid(geteuid())) == NULL)
+			return _id_error("geteuid", 1);
 		if((gr = getgrgid(getegid())) == NULL)
 			return _id_error("getgrgid", 1);
 		if(getegid() != getgid())
@@ -87,32 +90,34 @@ static int _id_G(char const * user, int flagn)
 	}
 	else
 	{
-		if((gr = getgrnam(user)) == NULL)
+		if((pw = getpwnam(user)) == NULL)
 			return _id_error(user, 1);
+		if((gr = getgrgid(pw->pw_gid)) == NULL)
+			return _id_error("getgrgid", 1);
 		if(flagn == 0)
 			printf("%u", (unsigned)gr->gr_gid);
 		else
-			puts(gr->gr_name);
+			fputs(gr->gr_name, stdout);
 	}
-	if((u = strdup(gr->gr_name)) == NULL)
+	if((g = strdup(gr->gr_name)) == NULL)
 		return _id_error(gr->gr_name, 1);
 	setgrent();
 	for(gr = getgrent(); gr != NULL; gr = getgrent())
 	{
 		for(p = gr->gr_mem; p != NULL && *p != NULL; p++)
 		{
-			if(strcmp(u, *p) == 0)
-			{
-				if(flagn == 0)
-					printf(" %u", (unsigned)gr->gr_gid);
-				else
-					printf(" %s", gr->gr_name);
-			}
+			if(strcmp(pw->pw_name, *p) != 0
+					|| strcmp(g, gr->gr_name) == 0)
+				continue;
+			if(flagn == 0)
+				printf(" %u", (unsigned)gr->gr_gid);
+			else
+				printf(" %s", gr->gr_name);
 		}
 	}
 	putchar('\n');
 	endgrent();
-	free(u);
+	free(g);
 	return 0;
 }
 
