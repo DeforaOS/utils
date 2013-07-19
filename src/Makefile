@@ -504,101 +504,101 @@ distclean: clean
 
 install: $(TARGETS)
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- basename $(DESTDIR)$(BINDIR)/basename
+	$(INSTALL) -m 0755 basename $(DESTDIR)$(BINDIR)/basename
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- cat $(DESTDIR)$(BINDIR)/cat
+	$(INSTALL) -m 0755 cat $(DESTDIR)$(BINDIR)/cat
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- chgrp $(DESTDIR)$(BINDIR)/chgrp
+	$(INSTALL) -m 0755 chgrp $(DESTDIR)$(BINDIR)/chgrp
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- chmod $(DESTDIR)$(BINDIR)/chmod
+	$(INSTALL) -m 0755 chmod $(DESTDIR)$(BINDIR)/chmod
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- chown $(DESTDIR)$(BINDIR)/chown
+	$(INSTALL) -m 0755 chown $(DESTDIR)$(BINDIR)/chown
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- cksum $(DESTDIR)$(BINDIR)/cksum
+	$(INSTALL) -m 0755 cksum $(DESTDIR)$(BINDIR)/cksum
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- cmp $(DESTDIR)$(BINDIR)/cmp
+	$(INSTALL) -m 0755 cmp $(DESTDIR)$(BINDIR)/cmp
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- cp $(DESTDIR)$(BINDIR)/cp
+	$(INSTALL) -m 0755 cp $(DESTDIR)$(BINDIR)/cp
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- df $(DESTDIR)$(BINDIR)/df
+	$(INSTALL) -m 0755 df $(DESTDIR)$(BINDIR)/df
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- dirname $(DESTDIR)$(BINDIR)/dirname
+	$(INSTALL) -m 0755 dirname $(DESTDIR)$(BINDIR)/dirname
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- du $(DESTDIR)$(BINDIR)/du
+	$(INSTALL) -m 0755 du $(DESTDIR)$(BINDIR)/du
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- echo $(DESTDIR)$(BINDIR)/echo
+	$(INSTALL) -m 0755 echo $(DESTDIR)$(BINDIR)/echo
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- false $(DESTDIR)$(BINDIR)/false
+	$(INSTALL) -m 0755 false $(DESTDIR)$(BINDIR)/false
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- file $(DESTDIR)$(BINDIR)/file
+	$(INSTALL) -m 0755 file $(DESTDIR)$(BINDIR)/file
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- find $(DESTDIR)$(BINDIR)/find
+	$(INSTALL) -m 0755 find $(DESTDIR)$(BINDIR)/find
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- head $(DESTDIR)$(BINDIR)/head
+	$(INSTALL) -m 0755 head $(DESTDIR)$(BINDIR)/head
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- id $(DESTDIR)$(BINDIR)/id
+	$(INSTALL) -m 0755 id $(DESTDIR)$(BINDIR)/id
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- kill $(DESTDIR)$(BINDIR)/kill
+	$(INSTALL) -m 0755 kill $(DESTDIR)$(BINDIR)/kill
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- link $(DESTDIR)$(BINDIR)/link
+	$(INSTALL) -m 0755 link $(DESTDIR)$(BINDIR)/link
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- ln $(DESTDIR)$(BINDIR)/ln
+	$(INSTALL) -m 0755 ln $(DESTDIR)$(BINDIR)/ln
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- locale $(DESTDIR)$(BINDIR)/locale
+	$(INSTALL) -m 0755 locale $(DESTDIR)$(BINDIR)/locale
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- logname $(DESTDIR)$(BINDIR)/logname
+	$(INSTALL) -m 0755 logname $(DESTDIR)$(BINDIR)/logname
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- ls $(DESTDIR)$(BINDIR)/ls
+	$(INSTALL) -m 0755 ls $(DESTDIR)$(BINDIR)/ls
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- mkdir $(DESTDIR)$(BINDIR)/mkdir
+	$(INSTALL) -m 0755 mkdir $(DESTDIR)$(BINDIR)/mkdir
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- mkfifo $(DESTDIR)$(BINDIR)/mkfifo
+	$(INSTALL) -m 0755 mkfifo $(DESTDIR)$(BINDIR)/mkfifo
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- more $(DESTDIR)$(BINDIR)/more
+	$(INSTALL) -m 0755 more $(DESTDIR)$(BINDIR)/more
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- mv $(DESTDIR)$(BINDIR)/mv
+	$(INSTALL) -m 0755 mv $(DESTDIR)$(BINDIR)/mv
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- nice $(DESTDIR)$(BINDIR)/nice
+	$(INSTALL) -m 0755 nice $(DESTDIR)$(BINDIR)/nice
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- pr $(DESTDIR)$(BINDIR)/pr
+	$(INSTALL) -m 0755 pr $(DESTDIR)$(BINDIR)/pr
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- printf $(DESTDIR)$(BINDIR)/printf
+	$(INSTALL) -m 0755 printf $(DESTDIR)$(BINDIR)/printf
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- ps $(DESTDIR)$(BINDIR)/ps
+	$(INSTALL) -m 0755 ps $(DESTDIR)$(BINDIR)/ps
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- pwd $(DESTDIR)$(BINDIR)/pwd
+	$(INSTALL) -m 0755 pwd $(DESTDIR)$(BINDIR)/pwd
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- renice $(DESTDIR)$(BINDIR)/renice
+	$(INSTALL) -m 0755 renice $(DESTDIR)$(BINDIR)/renice
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- rm $(DESTDIR)$(BINDIR)/rm
+	$(INSTALL) -m 0755 rm $(DESTDIR)$(BINDIR)/rm
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- rmdir $(DESTDIR)$(BINDIR)/rmdir
+	$(INSTALL) -m 0755 rmdir $(DESTDIR)$(BINDIR)/rmdir
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- sleep $(DESTDIR)$(BINDIR)/sleep
+	$(INSTALL) -m 0755 sleep $(DESTDIR)$(BINDIR)/sleep
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- strings $(DESTDIR)$(BINDIR)/strings
+	$(INSTALL) -m 0755 strings $(DESTDIR)$(BINDIR)/strings
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- tail $(DESTDIR)$(BINDIR)/tail
+	$(INSTALL) -m 0755 tail $(DESTDIR)$(BINDIR)/tail
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- test $(DESTDIR)$(BINDIR)/test
+	$(INSTALL) -m 0755 test $(DESTDIR)$(BINDIR)/test
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- time $(DESTDIR)$(BINDIR)/time
+	$(INSTALL) -m 0755 time $(DESTDIR)$(BINDIR)/time
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- touch $(DESTDIR)$(BINDIR)/touch
+	$(INSTALL) -m 0755 touch $(DESTDIR)$(BINDIR)/touch
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- true $(DESTDIR)$(BINDIR)/true
+	$(INSTALL) -m 0755 true $(DESTDIR)$(BINDIR)/true
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- tty $(DESTDIR)$(BINDIR)/tty
+	$(INSTALL) -m 0755 tty $(DESTDIR)$(BINDIR)/tty
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- uname $(DESTDIR)$(BINDIR)/uname
+	$(INSTALL) -m 0755 uname $(DESTDIR)$(BINDIR)/uname
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- uniq $(DESTDIR)$(BINDIR)/uniq
+	$(INSTALL) -m 0755 uniq $(DESTDIR)$(BINDIR)/uniq
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- unlink $(DESTDIR)$(BINDIR)/unlink
+	$(INSTALL) -m 0755 unlink $(DESTDIR)$(BINDIR)/unlink
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- wc $(DESTDIR)$(BINDIR)/wc
+	$(INSTALL) -m 0755 wc $(DESTDIR)$(BINDIR)/wc
 	$(MKDIR) $(DESTDIR)$(BINDIR)
-	$(INSTALL) -m 0755 -- who $(DESTDIR)$(BINDIR)/who
+	$(INSTALL) -m 0755 who $(DESTDIR)$(BINDIR)/who
 
 uninstall:
 	$(RM) -- $(DESTDIR)$(BINDIR)/basename
