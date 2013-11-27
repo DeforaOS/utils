@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2009 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2006-2013 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS Unix utils */
 /* This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@ typedef int Prefs;
 static int _df_error(char const * message, int ret);
 static int _df_mtab(Prefs * prefs);
 static int _df_do(Prefs * prefs, char const * file);
+
 static int _df(Prefs * prefs, int filec, char * filev[])
 {
 	int ret = 0;
@@ -55,6 +56,7 @@ static int _df_error(char const * message, int ret)
 }
 
 static void _df_print(Prefs * prefs, struct statvfs const * f);
+
 static int _df_mtab(Prefs * prefs)
 {
 #ifdef ST_WAIT
@@ -144,5 +146,5 @@ int main(int argc, char * argv[])
 			default:
 				return _usage();
 		}
-	return _df(&prefs, argc - optind, &argv[optind]) == 0 ? 0 : 2;
+	return (_df(&prefs, argc - optind, &argv[optind]) == 0) ? 0 : 2;
 }
