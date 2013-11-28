@@ -17,6 +17,7 @@
 
 #include <sys/types.h>
 #include <sys/statvfs.h>
+#include <sys/mount.h>
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -59,7 +60,7 @@ static void _df_print(Prefs * prefs, struct statvfs const * f);
 
 static int _df_mtab(Prefs * prefs)
 {
-#ifdef ST_WAIT
+#if defined(ST_WAIT)
 	int cnt;
 	struct statvfs * f;
 	int i;
@@ -75,6 +76,25 @@ static int _df_mtab(Prefs * prefs)
 	}
 	for(i = 0; i < cnt; i++)
 		_df_print(prefs, &f[i]);
+	free(f);
+#elif defined(MNT_WAIT)
+	int cnt;
+	struct statfs * f;
+	int i;
+	struct statvfs vf;
+
+	if((cnt = getfsstat(NULL, 0, MNT_WAIT)) < 0)
+		return _df_error("getfsstat", 1);
+	if((f = malloc(sizeof(*f) * cnt)) == NULL)
+		return _df_error("malloc", 1);
+	if(getfsstat(f, sizeof(f), MNT_WAIT) != cnt)
+		return _df_error("getfsstat", 1);
+	for(i = 0; i < cnt; i++)
+		/* XXX use the structure returned directly instead */
+		if(statvfs(f[i].f_mntonname, &vf) == 0)
+			_df_print(prefs, &vf);
+		else
+			_df_error(f[i].f_mntonname, 1);
 	free(f);
 #else /* FIXME incomplete workaround when getvfsstat() is missing */
 	struct statvfs f;
@@ -100,9 +120,12 @@ static void _df_print(Prefs * prefs, struct statvfs const * f)
 	avail = f->f_bavail * mod;
 	cap = ((f->f_blocks - f->f_bfree) * 100)
 		/ ((f->f_blocks - f->f_bfree) + f->f_bavail);
-#ifdef ST_WAIT
+#if defined(ST_WAIT)
 	printf("%-11s %10llu %10llu %10llu %7u%% %s\n", f->f_mntfromname,
 			cnt, used, avail, cap, f->f_mntonname);
+#elif defined(MNT_WAIT)
+	printf("%-11s %10llu %10llu %10llu %7u%% %s\n", "", cnt, used, avail,
+			cap, "");
 #else
 	printf("%-11s %10llu %10llu %10llu %7u%% %s\n", "", cnt, used, avail,
 			cap, "");
