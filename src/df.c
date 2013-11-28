@@ -88,7 +88,7 @@ static int _df_mtab(Prefs * prefs)
 		return _df_error("getfsstat", 1);
 	if((f = malloc(sizeof(*f) * i)) == NULL)
 		return _df_error("malloc", 1);
-	if((cnt = getfsstat(f, sizeof(f), MNT_WAIT)) < 0)
+	if((cnt = getfsstat(f, sizeof(*f) * i, MNT_WAIT)) < 0)
 		return _df_error("getfsstat", 1);
 	for(i = 0; i < cnt; i++)
 		/* XXX use the structure returned directly instead */
