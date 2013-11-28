@@ -66,11 +66,11 @@ static int _df_mtab(Prefs * prefs)
 	struct statvfs * f;
 	int i;
 
-	if((cnt = getvfsstat(NULL, 0, ST_WAIT)) < 0)
+	if((i = getvfsstat(NULL, 0, ST_WAIT)) < 0)
 		return _df_error("getvfsstat", 1);
-	if((f = malloc(sizeof(*f) * cnt)) == NULL)
+	if((f = malloc(sizeof(*f) * i)) == NULL)
 		return _df_error("malloc", 1);
-	if(getvfsstat(f, sizeof(*f) * cnt, ST_WAIT) != cnt)
+	if((cnt = getvfsstat(f, sizeof(*f) * i, ST_WAIT)) < 0)
 	{
 		free(f);
 		return _df_error("getvfsstat", 1);
@@ -84,11 +84,11 @@ static int _df_mtab(Prefs * prefs)
 	int i;
 	struct statvfs vf;
 
-	if((cnt = getfsstat(NULL, 0, MNT_WAIT)) < 0)
+	if((i = getfsstat(NULL, 0, MNT_WAIT)) < 0)
 		return _df_error("getfsstat", 1);
-	if((f = malloc(sizeof(*f) * cnt)) == NULL)
+	if((f = malloc(sizeof(*f) * i)) == NULL)
 		return _df_error("malloc", 1);
-	if(getfsstat(f, sizeof(f), MNT_WAIT) != cnt)
+	if((cnt = getfsstat(f, sizeof(f), MNT_WAIT)) < 0)
 		return _df_error("getfsstat", 1);
 	for(i = 0; i < cnt; i++)
 		/* XXX use the structure returned directly instead */
