@@ -44,8 +44,9 @@ static int _df(Prefs * prefs, int filec, char * filev[])
 			"-blocks       Used  Available Capacity Mounted on\n");
 	if(filec == 0)
 		return _df_mtab(prefs);
-	for(i = 0; i < filec; i++)
-		ret |= _df_do(prefs, filev[i]);
+	else
+		for(i = 0; i < filec; i++)
+			ret |= _df_do(prefs, filev[i]);
 	return ret;
 }
 
