@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2009 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2004-2014 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS Unix utils */
 /* This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -96,11 +96,10 @@ static void _strings_do(int flgn, FILE * fp)
 /* usage */
 static int _usage(void)
 {
-	/* FIXME */
-	fputs("Usage: strings [-a][-t format][-n number][file...]\n\
-  -a	\n\
-  -t	\n\
-  -n	\n", stderr);
+	fputs("Usage: strings [-a][-t format][-n number][file...]\n"
+"  -a	Scan files in their entirety\n"
+"  -t	Precede each string with its byte offset (\"d\", \"o\" or \"h\")\n"
+"  -n	Minimum string length\n", stderr);
 	return 1;
 }
 
