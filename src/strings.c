@@ -120,7 +120,7 @@ int main(int argc, char * argv[])
 				break;
 			case 'n':
 				flgn = strtol(optarg, &p, 10);
-				if(*(optarg) == '\0' || *p != '\0')
+				if(*optarg == '\0' || *p != '\0')
 					return _usage();
 				break;
 			default:
