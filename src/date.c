@@ -41,7 +41,7 @@ static int _date(char const * format)
 		return -_date_error("time", 1);
 	if(localtime_r(&t, &tm) == NULL)
 		return -_date_error("localtime_r", 1);
-	if(strftime(buf, sizeof(buf), format, &tm) == 0)
+	if(strftime(buf, sizeof(buf), format, &tm) == 0 && format[0] != '\0')
 		return -_date_error("strftime", 1);
 	puts(buf);
 	return 0;
