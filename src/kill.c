@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2009-2012 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2009-2014 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS Unix utils */
 /* This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -96,7 +96,7 @@ _kill_names[] =
 static int _kill(int sig, int argc, char * argv[]);
 static int _kill_list(int argc, char * argv[]);
 
-static int _error(char const * message, int ret);
+static int _kill_error(char const * message, int ret);
 static int _usage(void);
 
 
@@ -120,7 +120,7 @@ static int _kill(int sig, int argc, char * argv[])
 			continue;
 		}
 		if(kill(pid, sig) != 0)
-			ret |= _error(strerror(errno), 1);
+			ret |= _kill_error(strerror(errno), 1);
 	}
 	return ret;
 }
@@ -138,7 +138,7 @@ static int _kill_list(int argc, char * argv[])
 
 
 /* error */
-static int _error(char const * message, int ret)
+static int _kill_error(char const * message, int ret)
 {
 	fprintf(stderr, "%s: %s\n", "kill", message);
 	return ret;
@@ -184,7 +184,7 @@ int main(int argc, char * argv[])
 						break;
 					}
 				if(_kill_names[o].name == NULL)
-					return _error("Unknown signal", 2);
+					return _kill_error("Unknown signal", 2);
 				break;
 			default:
 				return _usage();
