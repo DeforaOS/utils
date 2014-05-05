@@ -23,14 +23,14 @@
 /* date */
 /* private */
 /* prototypes */
-static int _date(void);
+static int _date(char const * format);
 static int _date_error(char const * message, int ret);
 static int _usage(void);
 
 
 /* functions */
 /* date */
-static int _date(void)
+static int _date(char const * format)
 {
 	time_t t;
 	struct tm tm;
@@ -41,7 +41,7 @@ static int _date(void)
 		return -_date_error("time", 1);
 	if(localtime_r(&t, &tm) == NULL)
 		return -_date_error("localtime_r", 1);
-	if(strftime(buf, sizeof(buf), "%a %b %e %H:%M:%S %Z %Y", &tm) == 0)
+	if(strftime(buf, sizeof(buf), format, &tm) == 0)
 		return -_date_error("strftime", 1);
 	puts(buf);
 	return 0;
@@ -60,7 +60,7 @@ static int _date_error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: date\n", stderr);
+	fputs("Usage: date [+format]\n", stderr);
 	return 1;
 }
 
@@ -69,6 +69,7 @@ static int _usage(void)
 int main(int argc, char * argv[])
 {
 	int o;
+	char const * format = "%a %b %e %H:%M:%S %Z %Y";
 
 	while((o = getopt(argc, argv, "")) != -1)
 		switch(o)
@@ -76,7 +77,9 @@ int main(int argc, char * argv[])
 			default:
 				return _usage();
 		}
-	if(argc - optind != 0)
+	if(argc - optind == 1 && argv[optind][0] == '+')
+		format = &argv[optind][1];
+	else if(optind != argc)
 		return _usage();
-	return (_date() == 0) ? 0 : 2;
+	return (_date(format) == 0) ? 0 : 2;
 }
