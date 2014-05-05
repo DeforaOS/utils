@@ -138,6 +138,21 @@
 #undef _prefs_parse
 #undef _cp
 
+/* date.c */
+#define main _date_main
+#define _usage _date_usage
+#define _Prefs _date_Prefs
+#define Prefs date_Prefs
+#define _prefs_parse _date_prefs_parse
+#define _date __date
+#include "../src/date.c"
+#undef main
+#undef _usage
+#undef _Prefs
+#undef Prefs
+#undef _prefs_parse
+#undef _date
+
 /* df.c */
 #define main _df_main
 #define _usage _df_usage
@@ -750,6 +765,7 @@ Call calls[] =
 	{ "cksum",	_cksum_main	},
 	{ "cmp",	_cmp_main	},
 	{ "cp",	_cp_main	},
+	{ "date",	_date_main	},
 	{ "df",	_df_main	},
 	{ "dirname",	_dirname_main	},
 	{ "du",	_du_main	},

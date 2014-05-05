@@ -29,6 +29,7 @@ dist:
 		$(PACKAGE)-$(VERSION)/src/cksum.c \
 		$(PACKAGE)-$(VERSION)/src/cmp.c \
 		$(PACKAGE)-$(VERSION)/src/cp.c \
+		$(PACKAGE)-$(VERSION)/src/date.c \
 		$(PACKAGE)-$(VERSION)/src/df.c \
 		$(PACKAGE)-$(VERSION)/src/dirname.c \
 		$(PACKAGE)-$(VERSION)/src/du.c \
