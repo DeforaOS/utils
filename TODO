@@ -1,6 +1,6 @@
-- factorize code (either need to improve configure or include a .c file)
+- refactor code (either need to improve configure or include a .c file)
 - improve command line arguments fetching? (inspired from wc?)
-- factorize code; either:
+- refactor code; either:
   * include .c files
   * write a library
   * use libSystem
