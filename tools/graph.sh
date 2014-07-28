@@ -17,7 +17,7 @@
 
 
 #variables
-CC="../../../../../Devel/src/c99/C99-git/src/c99"
+CC="../../../../../Devel/src/C99/C99-git/src/c99"
 DOT="dot -Tpng:cairo:gd"
 MAKE="make -k"
 RM="rm -f"
