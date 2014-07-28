@@ -109,7 +109,7 @@ static int _rm_do_recursive(Prefs * prefs, char * filename)
 		closedir(dir);
 		return _rm_error(filename, 1);
 	}
-	sprintf(path, "%s/", filename);
+	snprintf(path, len, "%s/", filename);
 	while((de = readdir(dir)) != NULL)
 	{
 		if(de->d_name[0] == '.' && (de->d_name[1] == '\0'
