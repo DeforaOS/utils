@@ -20,7 +20,20 @@
 #include <libgen.h>
 #include <string.h>
 
+#ifndef PROGNAME
+# define PROGNAME "basename"
+#endif
 
+
+/* basename */
+/* private */
+/* prototypes */
+static int _basename(char * arg, char const * suf);
+
+static int _basename_usage(void);
+
+
+/* functions */
 /* basename */
 static int _basename(char * arg, char const * suf)
 {
@@ -41,14 +54,16 @@ static int _basename(char * arg, char const * suf)
 }
 
 
-/* usage */
-static int _usage(void)
+/* basename_usage */
+static int _basename_usage(void)
 {
-	fputs("Usage: basename string [suffix]\n", stderr);
+	fputs("Usage: " PROGNAME " string [suffix]\n", stderr);
 	return 1;
 }
 
 
+/* public */
+/* functions */
 /* main */
 int main(int argc, char * argv[])
 {
@@ -58,9 +73,9 @@ int main(int argc, char * argv[])
 		switch(o)
 		{
 			default:
-				return _usage();
+				return _basename_usage();
 		}
 	if(optind != argc - 1 && optind != argc - 2)
-		return _usage();
+		return _basename_usage();
 	return (_basename(argv[optind], argv[optind + 1]) == 0) ? 0 : 2;
 }
