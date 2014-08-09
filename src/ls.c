@@ -628,7 +628,7 @@ static char const * _long_date(time_t date)
 
 static char _file_mode_letter(mode_t mode)
 {
-	if(S_ISLNK(mode)) /* FIXME not in POSIX? */
+	if(S_ISLNK(mode))
 		return '@';
 	if(S_ISDIR(mode))
 		return '/';
