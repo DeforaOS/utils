@@ -81,6 +81,12 @@ _kill_names[] =
 #ifdef SIGTRAP
 	signal(SIGTRAP),
 #endif
+#ifdef SIGWINCH
+	signal(SIGWINCH),
+#endif
+#ifdef SIGINFO
+	signal(SIGINFO),
+#endif
 #ifdef SIGUSR1
 	signal(SIGUSR1),
 #endif
