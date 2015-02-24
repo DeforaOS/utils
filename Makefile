@@ -10,7 +10,11 @@ MKDIR	= mkdir -m 0755 -p
 all: subdirs
 
 subdirs:
-	@for i in $(SUBDIRS); do (cd "$$i" && $(MAKE)) || exit; done
+	@for i in $(SUBDIRS); do (cd "$$i" && \
+		if [ -n "$(OBJDIR)" ]; then \
+		([ -d "$(OBJDIR)$$i" ] || $(MKDIR) -- "$(OBJDIR)$$i") && \
+		$(MAKE) OBJDIR="$(OBJDIR)$$i/"; \
+		else $(MAKE); fi) || exit; done
 
 clean:
 	@for i in $(SUBDIRS); do (cd "$$i" && $(MAKE) clean) || exit; done
@@ -19,9 +23,9 @@ distclean:
 	@for i in $(SUBDIRS); do (cd "$$i" && $(MAKE) distclean) || exit; done
 
 dist:
-	$(RM) -r -- $(PACKAGE)-$(VERSION)
-	$(LN) -s -- . $(PACKAGE)-$(VERSION)
-	@$(TAR) -czvf $(PACKAGE)-$(VERSION).tar.gz -- \
+	$(RM) -r -- $(OBJDIR)$(PACKAGE)-$(VERSION)
+	$(LN) -s -- "$$PWD" $(OBJDIR)$(PACKAGE)-$(VERSION)
+	@cd $(OBJDIR). && $(TAR) -czvf $(OBJDIR)$(PACKAGE)-$(VERSION).tar.gz -- \
 		$(PACKAGE)-$(VERSION)/src/basename.c \
 		$(PACKAGE)-$(VERSION)/src/cat.c \
 		$(PACKAGE)-$(VERSION)/src/chgrp.c \
@@ -84,10 +88,10 @@ dist:
 		$(PACKAGE)-$(VERSION)/Makefile \
 		$(PACKAGE)-$(VERSION)/COPYING \
 		$(PACKAGE)-$(VERSION)/project.conf
-	$(RM) -- $(PACKAGE)-$(VERSION)
+	$(RM) -- $(OBJDIR)$(PACKAGE)-$(VERSION)
 
 distcheck: dist
-	$(TAR) -xzvf $(PACKAGE)-$(VERSION).tar.gz
+	$(TAR) -xzvf $(OBJDIR)$(PACKAGE)-$(VERSION).tar.gz
 	$(MKDIR) -- $(PACKAGE)-$(VERSION)/objdir
 	$(MKDIR) -- $(PACKAGE)-$(VERSION)/destdir
 	(cd "$(PACKAGE)-$(VERSION)" && $(MAKE) OBJDIR="$$PWD/objdir/")
