@@ -28,6 +28,10 @@
 #include <time.h>
 #include <limits.h>
 
+/* constants */
+#define PROGNAME	"ls"
+
+/* macros */
 #define max(a, b) ((a) > (b) ? (a) : (b))
 
 
@@ -248,7 +252,7 @@ static int _ls(int argc, char * argv[], Prefs * prefs)
 
 static int _ls_error(char const * message, int ret)
 {
-	fputs("ls: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -683,7 +687,7 @@ static int _ls_do_dirs(Prefs * prefs, int argc, SList * dirs)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: ls [-CFRacdilqrtu1][-H | -L]\n\
+	fputs("Usage: " PROGNAME " [-CFRacdilqrtu1][-H | -L]\n\
   -C	Write multi-column output\n\
   -F	Write a symbol after files names depending on their type\n\
   -R	Recursively list subdirectories encountered\n\
