@@ -302,6 +302,7 @@ static int _ls_directory_do(Prefs * prefs, char const * directory)
 	char * file = NULL;
 	char * p;
 	int pos = 1;
+	size_t len;
 
 	if((dir = opendir(directory)) == NULL)
 		return _ls_error(directory, 1);
@@ -313,14 +314,14 @@ static int _ls_directory_do(Prefs * prefs, char const * directory)
 		slist_insert_sorted(files, strdup(de->d_name), cmp);
 		if(pos <= 2)
 			continue;
-		if((p = realloc(file, strlen(directory) + strlen(de->d_name)
-						+ 2)) == NULL)
+		len = strlen(directory) + 1 + strlen(de->d_name) + 1;
+		if((p = realloc(file, len)) == NULL)
 		{
 			_ls_error("malloc", 0);
 			continue;
 		}
 		file = p;
-		sprintf(file, "%s/%s", directory, de->d_name);
+		snprintf(file, len, "%s/%s", directory, de->d_name);
 		if((*prefs & LS_PREFS_R) && _is_directory(prefs, file) == 1)
 			slist_insert_sorted(dirs, strdup(file), cmp);
 	}
@@ -452,6 +453,7 @@ static char _short_file_mode(Prefs * prefs, char const * directory,
 	int (* _stat)(const char * filename, struct stat * buf) = lstat;
 	struct stat st;
 	char * p;
+	size_t len;
 
 	if(*prefs & LS_PREFS_H || *prefs & LS_PREFS_L)
 		_stat = stat;
@@ -462,10 +464,10 @@ static char _short_file_mode(Prefs * prefs, char const * directory,
 	}
 	else
 	{
-		if((p = malloc(strlen(directory) + 1 + strlen(file) + 1))
-				== NULL)
+		len = strlen(directory) + 1 + strlen(file) + 1;
+		if((p = malloc(len)) == NULL)
 			return _ls_error("malloc", 0);
-		sprintf(p, "%s/%s", directory, file);
+		snprintf(p, len, "%s/%s", directory, file);
 		if(_stat(p, &st) != 0)
 		{
 			free(p);
@@ -486,6 +488,7 @@ static int _ls_do_files_long(Prefs * prefs, char const * directory,
 	char * p;
 	int (* _stat)(const char * filename, struct stat * buf) = lstat;
 	struct stat st;
+	size_t len;
 
 	if(*prefs & LS_PREFS_H || *prefs & LS_PREFS_L)
 		_stat = stat;
@@ -494,15 +497,15 @@ static int _ls_do_files_long(Prefs * prefs, char const * directory,
 		p = slist_data(&cur);
 		if(directory != NULL)
 		{
-			if((p = realloc(file, strlen(directory) + strlen(p)
-							+ 2)) == NULL)
+			len = strlen(directory) + 1 + strlen(p) + 1;
+			if((p = realloc(file, len)) == NULL)
 			{
 				_ls_error("malloc", 0);
 				continue;
 			}
 			file = p;
 			p = slist_data(&cur);
-			sprintf(file, "%s/%s", directory, p);
+			snprintf(file, "%s/%s", directory, p);
 		}
 		if(_stat(directory == NULL ? p : file, &st) != 0)
 			_ls_error(file, 0);
