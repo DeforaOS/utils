@@ -507,7 +507,7 @@ static int _ls_do_files_long(Prefs * prefs, char const * directory,
 			}
 			file = p;
 			p = slist_data(&cur);
-			snprintf(file, "%s/%s", directory, p);
+			snprintf(file, len, "%s/%s", directory, p);
 		}
 		if(_stat(directory == NULL ? p : file, &st) != 0)
 			_ls_error(file, 0);
