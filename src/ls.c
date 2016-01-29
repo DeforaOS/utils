@@ -29,7 +29,9 @@
 #include <limits.h>
 
 /* constants */
-#define PROGNAME	"ls"
+#ifndef PROGNAME
+# define PROGNAME	"ls"
+#endif
 
 /* macros */
 #define max(a, b) ((a) > (b) ? (a) : (b))
