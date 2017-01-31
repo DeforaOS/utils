@@ -34,6 +34,7 @@
 typedef int Prefs;
 #define GREP_PREFS_n 0x1
 #define GREP_PREFS_q 0x2
+#define GREP_PREFS_s 0x4
 
 
 /* prototypes */
@@ -99,9 +100,15 @@ static int _grep_files(Prefs * prefs, regex_t * reg, int filec, char * filev[])
 		}
 		else if((fp = fopen(filev[i], "r")) == NULL)
 		{
-			snprintf(buf, sizeof(buf), "%s: %s", filev[i],
-					strerror(errno));
-			ret = _grep_error(buf, 2);
+			if(prefs != NULL && (*prefs & GREP_PREFS_s)
+					&& (errno == ENOENT || errno == EACCES))
+				ret = 2;
+			else
+			{
+				snprintf(buf, sizeof(buf), "%s: %s", filev[i],
+						strerror(errno));
+				ret = _grep_error(buf, 2);
+			}
 			continue;
 		}
 		else
@@ -153,7 +160,7 @@ static int _grep_stream(Prefs * prefs, regex_t * reg, FILE * fp,
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: " PROGNAME " [-Einq][file...]\n", stderr);
+	fputs("Usage: " PROGNAME " [-Einqs][file...]\n", stderr);
 	return 1;
 }
 
@@ -167,7 +174,7 @@ int main(int argc, char * argv[])
 	Prefs prefs = 0;
 	int flags = 0;
 
-	while((o = getopt(argc, argv, "Einq")) != -1)
+	while((o = getopt(argc, argv, "Einqs")) != -1)
 		switch(o)
 		{
 			case 'E':
@@ -181,6 +188,9 @@ int main(int argc, char * argv[])
 				break;
 			case 'q':
 				prefs |= GREP_PREFS_q;
+				break;
+			case 's':
+				prefs |= GREP_PREFS_s;
 				break;
 			default:
 				return _usage();
