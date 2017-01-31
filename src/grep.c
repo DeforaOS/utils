@@ -86,24 +86,31 @@ static int _grep_files(Prefs * prefs, regex_t * reg, int filec, char * filev[])
 {
 	int ret = 1;
 	int i;
+	char const * filename;
 	FILE * fp;
 	char buf[128];
 
 	for(i = 0; i < filec; i++)
 	{
-		if((fp = fopen(filev[i], "r")) == NULL)
+		if(strcmp(filev[i], "-") == 0)
+		{
+			filename = NULL;
+			fp = stdin;
+		}
+		else if((fp = fopen(filev[i], "r")) == NULL)
 		{
 			snprintf(buf, sizeof(buf), "%s: %s", filev[i],
 					strerror(errno));
 			ret = _grep_error(buf, 2);
 			continue;
 		}
-		if(_grep_stream(prefs, reg, fp, (filec > 1) ? filev[i] : NULL)
-				== 0 && ret == 1)
+		else
+			filename = (filec == 1) ? "" : filev[i];
+		if(_grep_stream(prefs, reg, fp, filename) == 0 && ret == 1)
 			ret = 0;
-		if(fclose(fp) != 0)
+		if(filename != NULL && fclose(fp) != 0)
 		{
-			snprintf(buf, sizeof(buf), "%s: %s", filev[i],
+			snprintf(buf, sizeof(buf), "%s: %s", filename,
 					strerror(errno));
 			ret = _grep_error(buf, 2);
 		}
@@ -125,7 +132,7 @@ static int _grep_stream(Prefs * prefs, regex_t * reg, FILE * fp,
 		{
 			if(prefs != NULL && !(*prefs & GREP_PREFS_q))
 			{
-				if(filename != NULL)
+				if(filename != NULL && filename[0] != '\0')
 					printf("%s:", filename);
 				if(prefs != NULL && *prefs & GREP_PREFS_n)
 					printf("%zd:", line);
