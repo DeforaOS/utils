@@ -35,6 +35,7 @@ typedef int Prefs;
 #define GREP_PREFS_n 0x1
 #define GREP_PREFS_q 0x2
 #define GREP_PREFS_s 0x4
+#define GREP_PREFS_v 0x8
 
 
 /* prototypes */
@@ -144,24 +145,29 @@ static int _grep_stream(Prefs * prefs, regex_t * reg, FILE * fp,
 	int e;
 
 	for(line = 1; fgets(buf, sizeof(buf), fp) != NULL; line++)
-		if((e = regexec(reg, buf, 1, &match, 0)) == 0)
-		{
-			if(prefs != NULL && !(*prefs & GREP_PREFS_q))
-			{
-				if(filename != NULL && filename[0] != '\0')
-					printf("%s:", filename);
-				if(prefs != NULL && *prefs & GREP_PREFS_n)
-					printf("%zd:", line);
-				printf("%s", buf);
-			}
-			if(ret == 1)
-				ret = 0;
-		}
-		else if(e != REG_NOMATCH)
+	{
+		if((e = regexec(reg, buf, 1, &match, 0)) != 0
+				&& e != REG_NOMATCH)
 		{
 			regerror(e, reg, buf, sizeof(buf));
 			ret = -_grep_error(buf, 1);
+			continue;
 		}
+		if(prefs != NULL && *prefs & GREP_PREFS_v)
+			e = (e == 0) ? REG_NOMATCH : 0;
+		if(e == REG_NOMATCH)
+			continue;
+		if(prefs != NULL && !(*prefs & GREP_PREFS_q))
+		{
+			if(filename != NULL && filename[0] != '\0')
+				printf("%s:", filename);
+			if(prefs != NULL && *prefs & GREP_PREFS_n)
+				printf("%zd:", line);
+			printf("%s", buf);
+		}
+		if(ret == 1)
+			ret = 0;
+	}
 	return ret;
 }
 
@@ -169,7 +175,7 @@ static int _grep_stream(Prefs * prefs, regex_t * reg, FILE * fp,
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: " PROGNAME " [-Einqs][file...]\n", stderr);
+	fputs("Usage: " PROGNAME " [-Einqsv][file...]\n", stderr);
 	return 1;
 }
 
@@ -183,7 +189,7 @@ int main(int argc, char * argv[])
 	Prefs prefs = 0;
 	int flags = 0;
 
-	while((o = getopt(argc, argv, "Einqs")) != -1)
+	while((o = getopt(argc, argv, "Einqsv")) != -1)
 		switch(o)
 		{
 			case 'E':
@@ -200,6 +206,9 @@ int main(int argc, char * argv[])
 				break;
 			case 's':
 				prefs |= GREP_PREFS_s;
+				break;
+			case 'v':
+				prefs |= GREP_PREFS_v;
 				break;
 			default:
 				return _usage();
