@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2011 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2017 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS Unix utils */
 /* This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -257,6 +257,21 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _find
+
+/* grep.c */
+#define main _grep_main
+#define _usage _grep_usage
+#define _Prefs _grep_Prefs
+#define Prefs grep_Prefs
+#define _prefs_parse _grep_prefs_parse
+#define _grep __grep
+#include "../src/grep.c"
+#undef main
+#undef _usage
+#undef _Prefs
+#undef Prefs
+#undef _prefs_parse
+#undef _grep
 
 /* head.c */
 #define main _head_main
@@ -773,6 +788,7 @@ Call calls[] =
 	{ "false",	_false_main	},
 	{ "file",	_file_main	},
 	{ "find",	_find_main	},
+	{ "grep",	_grep_main	},
 	{ "head",	_head_main	},
 	{ "id",	_id_main	},
 	{ "kill",	_kill_main	},
