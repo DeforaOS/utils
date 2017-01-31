@@ -33,6 +33,8 @@
 /* Prefs */
 typedef int Prefs;
 #define GREP_PREFS_n 0x1
+#define GREP_PREFS_q 0x2
+
 
 /* prototypes */
 static int _grep(Prefs * prefs, int flags, char const * pattern,
@@ -121,11 +123,14 @@ static int _grep_stream(Prefs * prefs, regex_t * reg, FILE * fp,
 	for(line = 1; fgets(buf, sizeof(buf), fp) != NULL; line++)
 		if((e = regexec(reg, buf, 1, &match, 0)) == 0)
 		{
-			if(filename != NULL)
-				printf("%s:", filename);
-			if(prefs != NULL && *prefs & GREP_PREFS_n)
-				printf("%zd:", line);
-			printf("%s", buf);
+			if(prefs != NULL && !(*prefs & GREP_PREFS_q))
+			{
+				if(filename != NULL)
+					printf("%s:", filename);
+				if(prefs != NULL && *prefs & GREP_PREFS_n)
+					printf("%zd:", line);
+				printf("%s", buf);
+			}
 			if(ret == 1)
 				ret = 0;
 		}
@@ -141,7 +146,7 @@ static int _grep_stream(Prefs * prefs, regex_t * reg, FILE * fp,
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: " PROGNAME " [-Ein][file...]\n", stderr);
+	fputs("Usage: " PROGNAME " [-Einq][file...]\n", stderr);
 	return 1;
 }
 
@@ -155,7 +160,7 @@ int main(int argc, char * argv[])
 	Prefs prefs = 0;
 	int flags = 0;
 
-	while((o = getopt(argc, argv, "Ein")) != -1)
+	while((o = getopt(argc, argv, "Einq")) != -1)
 		switch(o)
 		{
 			case 'E':
@@ -166,6 +171,9 @@ int main(int argc, char * argv[])
 				break;
 			case 'n':
 				prefs |= GREP_PREFS_n;
+				break;
+			case 'q':
+				prefs |= GREP_PREFS_q;
 				break;
 			default:
 				return _usage();
