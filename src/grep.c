@@ -47,6 +47,7 @@ static int _usage(void);
 /* functions */
 /* grep */
 static int _grep_error(char const * message, int ret);
+static int _grep_file(Prefs * prefs, regex_t * reg, char const * filename);
 static int _grep_files(Prefs * prefs, regex_t * reg, int filec, char * filev[]);
 static int _grep_stream(Prefs * prefs, regex_t * reg, FILE * fp,
 		char const * filename);
@@ -83,45 +84,53 @@ static int _grep_error(char const * message, int ret)
 	return ret;
 }
 
+static int _grep_file(Prefs * prefs, regex_t * reg, char const * filename)
+{
+	int ret;
+	FILE * fp;
+	char buf[128];
+
+	if(strcmp(filename, "-") == 0)
+	{
+		filename = NULL;
+		fp = stdin;
+	}
+	else if((fp = fopen(filename, "r")) == NULL)
+	{
+		if(prefs != NULL && (*prefs & GREP_PREFS_s)
+				&& (errno == ENOENT || errno == EACCES))
+			return 2;
+		snprintf(buf, sizeof(buf), "%s: %s", filename, strerror(errno));
+		return _grep_error(buf, 2);
+	}
+	ret = _grep_stream(prefs, reg, fp, filename);
+	if(filename != NULL && fclose(fp) != 0)
+	{
+		snprintf(buf, sizeof(buf), "%s: %s", filename,
+				strerror(errno));
+		return _grep_error(buf, 2);
+	}
+	return ret;
+}
+
 static int _grep_files(Prefs * prefs, regex_t * reg, int filec, char * filev[])
 {
 	int ret = 1;
 	int i;
-	char const * filename;
-	FILE * fp;
-	char buf[128];
+	int r;
 
-	for(i = 0; i < filec; i++)
+	if(filec == 1)
 	{
-		if(strcmp(filev[i], "-") == 0)
-		{
-			filename = NULL;
-			fp = stdin;
-		}
-		else if((fp = fopen(filev[i], "r")) == NULL)
-		{
-			if(prefs != NULL && (*prefs & GREP_PREFS_s)
-					&& (errno == ENOENT || errno == EACCES))
-				ret = 2;
-			else
-			{
-				snprintf(buf, sizeof(buf), "%s: %s", filev[i],
-						strerror(errno));
-				ret = _grep_error(buf, 2);
-			}
-			continue;
-		}
+		if(strcmp(filev[0], "-") == 0)
+			return _grep_stream(prefs, reg, stdin, NULL);
 		else
-			filename = (filec == 1) ? "" : filev[i];
-		if(_grep_stream(prefs, reg, fp, filename) == 0 && ret == 1)
-			ret = 0;
-		if(filename != NULL && fclose(fp) != 0)
-		{
-			snprintf(buf, sizeof(buf), "%s: %s", filename,
-					strerror(errno));
-			ret = _grep_error(buf, 2);
-		}
+			return _grep_file(prefs, reg, filev[0]);
 	}
+	for(i = 0; i < filec; i++)
+		if((r = _grep_file(prefs, reg, filev[i])) > 1 || r < 0)
+			ret = 2;
+		else if(r == 0)
+			ret = (ret == 1) ? 0 : ret;
 	return ret;
 }
 
