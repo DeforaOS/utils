@@ -29,8 +29,14 @@
 
 /* grep */
 /* private */
+/* types */
+/* Prefs */
+typedef int Prefs;
+#define GREP_PREFS_n 0x1
+
 /* prototypes */
-static int _grep(int flags, char const * pattern, int filec, char * filev[]);
+static int _grep(Prefs * prefs, int flags, char const * pattern,
+		int filec, char * filev[]);
 
 static int _usage(void);
 
@@ -38,10 +44,12 @@ static int _usage(void);
 /* functions */
 /* grep */
 static int _grep_error(char const * message, int ret);
-static int _grep_files(regex_t * reg, int filec, char * filev[]);
-static int _grep_stream(regex_t * reg, FILE * fp, char const * filename);
+static int _grep_files(Prefs * prefs, regex_t * reg, int filec, char * filev[]);
+static int _grep_stream(Prefs * prefs, regex_t * reg, FILE * fp,
+		char const * filename);
 
-static int _grep(int flags, char const * pattern, int filec, char * filev[])
+static int _grep(Prefs * prefs, int flags, char const * pattern,
+		int filec, char * filev[])
 {
 	int ret;
 	regex_t reg;
@@ -59,9 +67,9 @@ static int _grep(int flags, char const * pattern, int filec, char * filev[])
 		return _grep_error(buf, 2);
 	}
 	if(filec == 0)
-		ret = _grep_stream(&reg, stdin, NULL);
+		ret = _grep_stream(prefs, &reg, stdin, NULL);
 	else
-		ret = _grep_files(&reg, filec, filev);
+		ret = _grep_files(prefs, &reg, filec, filev);
 	regfree(&reg);
 	return ret;
 }
@@ -72,7 +80,7 @@ static int _grep_error(char const * message, int ret)
 	return ret;
 }
 
-static int _grep_files(regex_t * reg, int filec, char * filev[])
+static int _grep_files(Prefs * prefs, regex_t * reg, int filec, char * filev[])
 {
 	int ret = 1;
 	int i;
@@ -88,8 +96,8 @@ static int _grep_files(regex_t * reg, int filec, char * filev[])
 			ret = _grep_error(buf, 2);
 			continue;
 		}
-		if(_grep_stream(reg, fp, (filec > 1) ? filev[i] : NULL) == 0
-				&& ret == 1)
+		if(_grep_stream(prefs, reg, fp, (filec > 1) ? filev[i] : NULL)
+				== 0 && ret == 1)
 			ret = 0;
 		if(fclose(fp) != 0)
 		{
@@ -101,18 +109,22 @@ static int _grep_files(regex_t * reg, int filec, char * filev[])
 	return ret;
 }
 
-static int _grep_stream(regex_t * reg, FILE * fp, char const * filename)
+static int _grep_stream(Prefs * prefs, regex_t * reg, FILE * fp,
+		char const * filename)
 {
 	int ret = 1;
+	size_t line;
 	char buf[BUFSIZ];
 	regmatch_t match;
 	int e;
 
-	while(fgets(buf, sizeof(buf), fp) != NULL)
+	for(line = 1; fgets(buf, sizeof(buf), fp) != NULL; line++)
 		if((e = regexec(reg, buf, 1, &match, 0)) == 0)
 		{
 			if(filename != NULL)
 				printf("%s:", filename);
+			if(prefs != NULL && *prefs & GREP_PREFS_n)
+				printf("%zd:", line);
 			printf("%s", buf);
 			if(ret == 1)
 				ret = 0;
@@ -129,7 +141,7 @@ static int _grep_stream(regex_t * reg, FILE * fp, char const * filename)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: " PROGNAME " [-Ei][file...]\n", stderr);
+	fputs("Usage: " PROGNAME " [-Ein][file...]\n", stderr);
 	return 1;
 }
 
@@ -140,9 +152,10 @@ static int _usage(void)
 int main(int argc, char * argv[])
 {
 	int o;
+	Prefs prefs = 0;
 	int flags = 0;
 
-	while((o = getopt(argc, argv, "Ei")) != -1)
+	while((o = getopt(argc, argv, "Ein")) != -1)
 		switch(o)
 		{
 			case 'E':
@@ -151,10 +164,14 @@ int main(int argc, char * argv[])
 			case 'i':
 				flags |= REG_ICASE;
 				break;
+			case 'n':
+				prefs |= GREP_PREFS_n;
+				break;
 			default:
 				return _usage();
 		}
 	if(optind == argc)
 		return _usage();
-	return _grep(flags, argv[optind], argc - optind - 1, &argv[optind + 1]);
+	return _grep(&prefs, flags, argv[optind], argc - optind - 1,
+			&argv[optind + 1]);
 }
