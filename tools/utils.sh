@@ -17,7 +17,10 @@
 
 
 #variables
+#XXX make it reproducible
 YEAR=`date '+%Y'`
+#executables
+CAT="cat"
 
 
 #functions
@@ -26,7 +29,7 @@ includes() {
 	BASENAME="$1"
 	PROGRAM="$2"
 
-	cat << EOF
+	$CAT << EOF
 
 /* $BASENAME */
 #define main _${PROGRAM}_main
@@ -47,9 +50,9 @@ EOF
 
 
 #main
-cat > "utils.c" << EOF
+$CAT > "utils.c" << EOF
 /* \$Id\$ */
-/* Copyright (c) 2011 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) $YEAR Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS Unix utils */
 /* This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
