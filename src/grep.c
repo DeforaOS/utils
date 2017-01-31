@@ -129,7 +129,7 @@ static int _grep_stream(regex_t * reg, FILE * fp, char const * filename)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: " PROGNAME " [-i][file...]\n", stderr);
+	fputs("Usage: " PROGNAME " [-Ei][file...]\n", stderr);
 	return 1;
 }
 
@@ -142,9 +142,12 @@ int main(int argc, char * argv[])
 	int o;
 	int flags = 0;
 
-	while((o = getopt(argc, argv, "i")) != -1)
+	while((o = getopt(argc, argv, "Ei")) != -1)
 		switch(o)
 		{
+			case 'E':
+				flags |= REG_EXTENDED;
+				break;
 			case 'i':
 				flags |= REG_ICASE;
 				break;
