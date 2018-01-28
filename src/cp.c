@@ -28,6 +28,11 @@
 #include <libgen.h>
 #include <errno.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"cp"
+#endif
+
 
 /* types */
 typedef int Prefs;
@@ -55,7 +60,8 @@ static int _cp(Prefs * prefs, int filec, char * filev[])
 			return _cp_error(filev[filec - 1], 1);
 		if(filec > 2)
 		{
-			fprintf(stderr, "%s%s%s", "cp: ", filev[filec - 1],
+			fprintf(stderr, "%s%s%s", PROGNAME ": ",
+					filev[filec - 1],
 					": Does not exist and more than two"
 					" operands were given\n");
 			return 1;
@@ -73,7 +79,7 @@ static int _cp(Prefs * prefs, int filec, char * filev[])
 
 static int _cp_error(char const * message, int ret)
 {
-	fputs("cp: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -83,7 +89,7 @@ static int _cp_confirm(char const * message)
 	int c;
 	int tmp;
 
-	fprintf(stderr, "%s%s%s", "cp: ", message, ": Overwrite? ");
+	fprintf(stderr, "%s%s%s", PROGNAME ": ", message, ": Overwrite? ");
 	if((c = fgetc(stdin)) == EOF)
 		return 0;
 	while(c != '\n' && (tmp = fgetc(stdin)) != EOF && tmp != '\n');
@@ -116,8 +122,8 @@ static int _cp_single(Prefs * prefs, char const * src, char const * dst)
 	{
 		if(st.st_dev == st2.st_dev && st.st_ino == st2.st_ino)
 		{
-			fprintf(stderr, "%s: %s: \"%s\"%s\n", "cp", dst, src,
-					" is identical (not copied)");
+			fprintf(stderr, "%s: %s: \"%s\"%s\n", PROGNAME, dst,
+					src, " is identical (not copied)");
 			return 0;
 		}
 		if(*prefs & CP_PREFS_i && _cp_confirm(dst) != 1)
@@ -149,7 +155,7 @@ static int _cp_single_dir(Prefs * prefs, char const * src, char const * dst,
 {
 	if(*prefs & CP_PREFS_R)
 		return _cp_single_recurse(prefs, src, dst, mode);
-	fprintf(stderr, "%s%s%s", "cp: ", src, ": Omitting directory\n");
+	fprintf(stderr, "%s%s%s", PROGNAME ": ", src, ": Omitting directory\n");
 	return 0;
 }
 
@@ -304,10 +310,10 @@ static int _cp_multiple(Prefs * prefs, int filec, char * const filev[])
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: cp [-fip] source_file target_file\n\
-       cp [-fip] source_file ... target\n\
-       cp -R [-H | -L | -P][-fip] source_file ... target\n\
-       cp -r [-H | -L | -P][-fip] source_file ... target\n\
+	fputs("Usage: " PROGNAME " [-fip] source_file target_file\n\
+       " PROGNAME " [-fip] source_file ... target\n\
+       " PROGNAME " -R [-H | -L | -P][-fip] source_file ... target\n\
+       " PROGNAME " -r [-H | -L | -P][-fip] source_file ... target\n\
   -f	Attempt to remove destination file before a copy if necessary\n\
   -i	Prompt before a copy to an existing file\n\
   -p	Duplicate characteristics of the source files\n\
