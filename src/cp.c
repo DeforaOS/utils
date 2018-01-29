@@ -101,6 +101,8 @@ static int _cp_confirm(char const * message)
 static int _cp_single_dir(Prefs * prefs, char const * src, char const * dst,
 		mode_t mode);
 static int _cp_single_fifo(char const * dst, mode_t mode);
+static int _cp_single_nod(char const * src, char const * dst, mode_t mode,
+		dev_t rdev);
 static int _cp_single_symlink(char const * src, char const * dst);
 static int _cp_single_regular(char const * src, char const * dst, mode_t mode);
 static int _cp_single_p(char const * dst, struct stat * st);
@@ -135,6 +137,8 @@ static int _cp_single(Prefs * prefs, char const * src, char const * dst)
 		ret = _cp_single_dir(prefs, src, dst, st.st_mode & 0777);
 	else if(S_ISFIFO(st.st_mode))
 		ret = _cp_single_fifo(dst, st.st_mode & 0666);
+	else if(S_ISCHR(st.st_mode) || S_ISBLK(st.st_mode))
+		ret = _cp_single_nod(src, dst, st.st_mode, st.st_rdev);
 	else if(S_ISLNK(st.st_mode))
 		ret = _cp_single_symlink(src, dst);
 	else
@@ -211,6 +215,16 @@ static int _cp_single_fifo(char const * dst, mode_t mode)
 {
 	if(mkfifo(dst, mode) != 0)
 		return _cp_error(dst, 1);
+	return 0;
+}
+
+static int _cp_single_nod(char const * src, char const * dst, mode_t mode,
+		dev_t rdev)
+{
+	if(mknod(dst, mode, rdev) != 0)
+		return _cp_error(dst, 1);
+	if(unlink(src) != 0)
+		_cp_error(src, 0);
 	return 0;
 }
 
