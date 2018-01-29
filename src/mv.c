@@ -27,6 +27,11 @@
 #include <limits.h>
 #include <errno.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"mv"
+#endif
+
 
 /* types */
 typedef int Prefs;
@@ -65,7 +70,7 @@ static int _mv(Prefs * prefs, int filec, char * filev[])
 
 static int _mv_error(char const * message, int ret)
 {
-	fputs("mv: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -75,7 +80,7 @@ static int _mv_confirm(char const * dst)
 	int c;
 	int tmp;
 
-	fprintf(stderr, "%s%s%s", "mv: ", dst, ": Overwrite? ");
+	fprintf(stderr, "%s%s%s", PROGNAME ": ", dst, ": Overwrite? ");
 	if((c = fgetc(stdin)) == EOF)
 		return 0;
 	while(c != '\n' && (tmp = fgetc(stdin)) != EOF && tmp != '\n');
@@ -305,8 +310,8 @@ static int _mv_multiple(Prefs * prefs, int filec, char * const filev[])
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: mv [-fi] source_file target_file\n\
-       mv [-fi] source_file... target_file\n\
+	fputs("Usage: " PROGNAME " [-fi] source_file target_file\n\
+       " PROGNAME " [-fi] source_file... target_file\n\
   -f	Do not prompt for confirmation if the destination path exists\n\
   -i	Prompt for confirmation if the destination path exists\n", stderr);
 	return 1;
