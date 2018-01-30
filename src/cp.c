@@ -141,8 +141,13 @@ static int _cp_single(Prefs * prefs, char const * src, char const * dst)
 		ret = _cp_single_nod(src, dst, st.st_mode, st.st_rdev);
 	else if(S_ISLNK(st.st_mode))
 		ret = _cp_single_symlink(src, dst);
-	else
+	else if(S_ISREG(st.st_mode))
 		ret = _cp_single_regular(src, dst, st.st_mode & 0777);
+	else
+	{
+		errno = ENOSYS;
+		return _cp_error(src, 1);
+	}
 	if(ret != 0)
 		return ret;
 	if(*prefs & CP_PREFS_p) /* XXX TOCTOU */

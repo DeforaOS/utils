@@ -123,13 +123,13 @@ static int _mv_single(Prefs * prefs, char const * src, char const * dst)
 		ret = _mv_single_nod(src, dst, st.st_mode, st.st_rdev);
 	else if(S_ISLNK(st.st_mode))
 		ret = _mv_single_symlink(src, dst);
-	else if(!S_ISREG(st.st_mode)) /* FIXME not implemented */
+	else if(S_ISREG(st.st_mode))
+		ret = _mv_single_regular(src, dst, st.st_mode & 0777);
+	else
 	{
 		errno = ENOSYS;
 		return _mv_error(src, 1);
 	}
-	else
-		ret = _mv_single_regular(src, dst, st.st_mode & 0777);
 	if(ret != 0)
 		return ret;
 	_mv_single_p(dst, &st);
