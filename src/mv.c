@@ -75,12 +75,12 @@ static int _mv_error(char const * message, int ret)
 	return ret;
 }
 
-static int _mv_confirm(char const * dst)
+static int _mv_confirm(char const * message)
 {
 	int c;
 	int tmp;
 
-	fprintf(stderr, "%s%s%s", PROGNAME ": ", dst, ": Overwrite? ");
+	fprintf(stderr, "%s%s%s", PROGNAME ": ", message, ": Overwrite? ");
 	if((c = fgetc(stdin)) == EOF)
 		return 0;
 	while(c != '\n' && (tmp = fgetc(stdin)) != EOF && tmp != '\n');
@@ -137,8 +137,8 @@ static int _mv_single(Prefs * prefs, char const * src, char const * dst)
 }
 
 /* _mv_single_dir */
-static int _mv_single_recurse(Prefs * prefs, char const * src,
-		char const * dst, mode_t mode);
+static int _mv_single_recurse(Prefs * prefs, char const * src, char const * dst,
+		mode_t mode);
 
 static int _mv_single_dir(Prefs * prefs, char const * src, char const * dst,
 		mode_t mode)
@@ -218,11 +218,11 @@ static int _mv_single_nod(char const * src, char const * dst, mode_t mode,
 static int _mv_single_symlink(char const * src, char const * dst)
 {
 	char buf[PATH_MAX];
-	ssize_t i;
+	ssize_t len;
 
-	if((i = readlink(src, buf, sizeof(buf) - 1)) == -1)
+	if((len = readlink(src, buf, sizeof(buf) - 1)) == -1)
 		return _mv_error(src, 1);
-	buf[i] = '\0';
+	buf[len] = '\0';
 	if(symlink(buf, dst) != 0)
 		return _mv_error(dst, 1);
 	if(unlink(src) != 0)
