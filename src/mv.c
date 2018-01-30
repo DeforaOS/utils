@@ -88,12 +88,13 @@ static int _mv_confirm(char const * dst)
 }
 
 /* mv_single */
-static int _mv_single_dir(Prefs * prefs, char const * src, char const * dst);
-static int _mv_single_fifo(char const * src, char const * dst);
+static int _mv_single_dir(Prefs * prefs, char const * src, char const * dst,
+		mode_t mode);
+static int _mv_single_fifo(char const * src, char const * dst, mode_t mode);
 static int _mv_single_nod(char const * src, char const * dst, mode_t mode,
 		dev_t rdev);
 static int _mv_single_symlink(char const * src, char const * dst);
-static int _mv_single_regular(char const * src, char const * dst);
+static int _mv_single_regular(char const * src, char const * dst, mode_t mode);
 static int _mv_single_p(char const * dst, struct stat const * st);
 
 static int _mv_single(Prefs * prefs, char const * src, char const * dst)
@@ -115,9 +116,9 @@ static int _mv_single(Prefs * prefs, char const * src, char const * dst)
 	if(lstat(src, &st) != 0)
 		return _mv_error(dst, 1);
 	if(S_ISDIR(st.st_mode))
-		ret = _mv_single_dir(prefs, src, dst);
+		ret = _mv_single_dir(prefs, src, dst, st.st_mode & 0777);
 	else if(S_ISFIFO(st.st_mode))
-		ret = _mv_single_fifo(src, dst);
+		ret = _mv_single_fifo(src, dst, st.st_mode & 0666);
 	else if(S_ISCHR(st.st_mode) || S_ISBLK(st.st_mode))
 		ret = _mv_single_nod(src, dst, st.st_mode, st.st_rdev);
 	else if(S_ISLNK(st.st_mode))
@@ -128,7 +129,7 @@ static int _mv_single(Prefs * prefs, char const * src, char const * dst)
 		return _mv_error(src, 1);
 	}
 	else
-		ret = _mv_single_regular(src, dst);
+		ret = _mv_single_regular(src, dst, st.st_mode & 0777);
 	if(ret != 0)
 		return ret;
 	_mv_single_p(dst, &st);
@@ -137,18 +138,20 @@ static int _mv_single(Prefs * prefs, char const * src, char const * dst)
 
 /* _mv_single_dir */
 static int _mv_single_recurse(Prefs * prefs, char const * src,
-		char const * dst);
+		char const * dst, mode_t mode);
 
-static int _mv_single_dir(Prefs * prefs, char const * src, char const * dst)
+static int _mv_single_dir(Prefs * prefs, char const * src, char const * dst,
+		mode_t mode)
 {
-	if(_mv_single_recurse(prefs, src, dst) != 0)
+	if(_mv_single_recurse(prefs, src, dst, mode) != 0)
 		return 1;
 	if(rmdir(src) != 0) /* FIXME probably gonna fail, recurse before */
 		_mv_error(src, 0);
 	return 0;
 }
 
-static int _mv_single_recurse(Prefs * prefs, char const * src, char const * dst)
+static int _mv_single_recurse(Prefs * prefs, char const * src, char const * dst,
+		mode_t mode)
 {
 	int ret = 0;
 	size_t srclen;
@@ -159,7 +162,7 @@ static int _mv_single_recurse(Prefs * prefs, char const * src, char const * dst)
 	char * sdst = NULL;
 	char * p;
 
-	if(mkdir(dst, 0777) != 0)
+	if(mkdir(dst, mode) != 0)
 		return _mv_error(dst, 1);
 	srclen = strlen(src);
 	dstlen = strlen(dst);
@@ -193,9 +196,9 @@ static int _mv_single_recurse(Prefs * prefs, char const * src, char const * dst)
 	return ret;
 }
 
-static int _mv_single_fifo(char const * src, char const * dst)
+static int _mv_single_fifo(char const * src, char const * dst, mode_t mode)
 {
-	if(mkfifo(dst, 0666) != 0)
+	if(mkfifo(dst, mode) != 0)
 		return _mv_error(dst, 1);
 	if(unlink(src) != 0)
 		_mv_error(src, 0);
@@ -227,19 +230,23 @@ static int _mv_single_symlink(char const * src, char const * dst)
 	return 0;
 }
 
-static int _mv_single_regular(char const * src, char const * dst)
+static int _mv_single_regular(char const * src, char const * dst, mode_t mode)
 {
 	int ret = 0;
 	FILE * fsrc;
+	int fd;
 	FILE * fdst;
 	char buf[BUFSIZ];
 	size_t size;
 
 	if((fsrc = fopen(src, "r")) == NULL)
 		return _mv_error(dst, 1);
-	if((fdst = fopen(dst, "w")) == NULL)
+	if((fd = open(dst, O_WRONLY | O_CREAT | O_TRUNC, mode)) < 0
+			|| (fdst = fdopen(fd, "w")) == NULL)
 	{
 		ret |= _mv_error(dst, 1);
+		if(fd >= 0)
+			close(fd);
 		fclose(fsrc);
 		return ret;
 	}
@@ -264,16 +271,16 @@ static int _mv_single_p(char const * dst, struct stat const * st)
 	if(lchown(dst, st->st_uid, st->st_gid) != 0) /* XXX TOCTOU */
 	{
 		_mv_error(dst, 0);
-		if(chmod(dst, st->st_mode & ~(S_ISUID | S_ISGID)) != 0)
+		if(lchmod(dst, st->st_mode & ~(S_ISUID | S_ISGID)) != 0)
 			_mv_error(dst, 0);
 	}
-	else if(chmod(dst, st->st_mode) != 0)
+	else if(lchmod(dst, st->st_mode) != 0)
 		_mv_error(dst, 0);
 	tv[0].tv_sec = st->st_atime;
 	tv[0].tv_usec = 0;
 	tv[1].tv_sec = st->st_mtime;
 	tv[1].tv_usec = 0;
-	if(utimes(dst, tv) != 0)
+	if(lutimes(dst, tv) != 0)
 		_mv_error(dst, 0);
 	return 0;
 }
