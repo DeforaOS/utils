@@ -1,6 +1,6 @@
 #!/bin/sh
 #$Id$
-#Copyright (c) 2016-2017 Pierre Pronchery <khorben@defora.org>
+#Copyright (c) 2016-2019 Pierre Pronchery <khorben@defora.org>
 #
 #Redistribution and use in source and binary forms, with or without
 #modification, are permitted provided that the following conditions are met:
@@ -33,6 +33,7 @@ PROJECTCONF="../project.conf"
 DATE="date"
 DEBUG="_debug"
 FIND="find"
+GREP="grep"
 LINT="lint -g"
 SORT="sort -n"
 TR="tr"
@@ -59,23 +60,48 @@ _clint()
 	done < "$PROJECTCONF"
 	for subdir in $subdirs; do
 		[ -d "../$subdir" ] || continue
-		for filename in $($FIND "../$subdir" -name '*.c' | $SORT); do
-			_clint_file "$filename"
-			if [ $? -eq 0 ]; then
-				echo "$filename:"
-			else
+		for filename in $($FIND "../$subdir" -type f | $SORT); do
+			case "$filename" in
+				*.c)
+					echo
+					(_clint_lint "$filename";
+						_clint_rtrim "$filename")
+					;;
+				*.h)
+					echo
+					echo "$filename:"
+					(_clint_rtrim "$filename")
+					;;
+				*)
+					continue
+					;;
+			esac
+			if [ $? -ne 0 ]; then
+				echo "FAIL"
 				echo "$PROGNAME: $filename: FAIL" 1>&2
 				ret=2
+			else
+				echo "OK"
 			fi
 		done
 	done
 	return $ret
 }
 
-_clint_file()
+_clint_lint()
 {
-	echo
+	filename="$1"
+
+	echo -n "${filename%/*}/"
 	$DEBUG $LINT $CPPFLAGS $CFLAGS "$filename" 2>&1
+}
+
+_clint_rtrim()
+{
+	filename="$1"
+	regex="[ 	]\\+\$"
+
+	$DEBUG $GREP -vq "$regex" "$filename" 2>&1
 }
 
 
@@ -118,7 +144,7 @@ while getopts "cO:P:" name; do
 			export "${OPTARG%%=*}"="${OPTARG#*=}"
 			;;
 		P)
-			#XXX ignored for compatibility
+			CPPFLAGS="$CPPFLAGS -I$OPTARG/include"
 			;;
 		?)
 			_usage
