@@ -23,6 +23,11 @@
 #include <pwd.h>
 #include <grp.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"id"
+#endif
+
 
 /* id */
 static int _id_error(char const * message, int ret);
@@ -45,7 +50,7 @@ static int _id(char const * user, int flag, int flagn, int flagr)
 /* _id_error */
 static int _id_error(char const * message, int ret)
 {
-	fputs("id: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -261,7 +266,7 @@ static struct group * _print_gid(gid_t gid)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: id [-Ggu][-nr] [user]\n\
+	fputs("Usage: " PROGNAME " [-Ggu][-nr] [user]\n\
   -G	Output all different group IDs\n\
   -g	Output only the effective group ID\n\
   -u	Output only the effective user ID\n\
