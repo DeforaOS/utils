@@ -22,6 +22,11 @@
 #include <libgen.h>
 #include "utilbox.h"
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"utilbox"
+#endif
+
 
 /* utilbox */
 /* private */
@@ -35,7 +40,7 @@ static int _usage(void);
 /* error */
 static int _error(char const * message, int ret)
 {
-	fputs("utilbox: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -55,8 +60,8 @@ static int _list(Call * calls)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: utilbox program [arguments...]\n"
-"       utilbox -l\n"
+	fputs("Usage: " PROGNAME " program [arguments...]\n"
+"       " PROGNAME " -l\n"
 "  -l	List available programs\n", stderr);
 	return 1;
 }
