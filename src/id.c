@@ -66,7 +66,7 @@ static int _id_G(char const * user, int flagn)
 	if(user == NULL)
 	{
 		if((pw = getpwuid(geteuid())) == NULL)
-			return _id_error("geteuid", 1);
+			return _id_error("getpwuid", 1);
 		if((gr = getgrgid(getegid())) == NULL)
 			return _id_error("getgrgid", 1);
 		if(getegid() != getgid())
