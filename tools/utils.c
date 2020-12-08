@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2017 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2020 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS Unix utils */
 /* This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
 
 
 /* basename.c */
+#define PROGNAME "basename"
 #define main _basename_main
 #define _usage _basename_usage
 #define _Prefs _basename_Prefs
@@ -32,8 +33,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _basename
+#undef PROGNAME
 
 /* cat.c */
+#define PROGNAME "cat"
 #define main _cat_main
 #define _usage _cat_usage
 #define _Prefs _cat_Prefs
@@ -47,8 +50,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _cat
+#undef PROGNAME
 
 /* chgrp.c */
+#define PROGNAME "chgrp"
 #define main _chgrp_main
 #define _usage _chgrp_usage
 #define _Prefs _chgrp_Prefs
@@ -62,8 +67,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _chgrp
+#undef PROGNAME
 
 /* chmod.c */
+#define PROGNAME "chmod"
 #define main _chmod_main
 #define _usage _chmod_usage
 #define _Prefs _chmod_Prefs
@@ -77,8 +84,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _chmod
+#undef PROGNAME
 
 /* chown.c */
+#define PROGNAME "chown"
 #define main _chown_main
 #define _usage _chown_usage
 #define _Prefs _chown_Prefs
@@ -92,8 +101,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _chown
+#undef PROGNAME
 
 /* cksum.c */
+#define PROGNAME "cksum"
 #define main _cksum_main
 #define _usage _cksum_usage
 #define _Prefs _cksum_Prefs
@@ -107,8 +118,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _cksum
+#undef PROGNAME
 
 /* cmp.c */
+#define PROGNAME "cmp"
 #define main _cmp_main
 #define _usage _cmp_usage
 #define _Prefs _cmp_Prefs
@@ -122,8 +135,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _cmp
+#undef PROGNAME
 
 /* cp.c */
+#define PROGNAME "cp"
 #define main _cp_main
 #define _usage _cp_usage
 #define _Prefs _cp_Prefs
@@ -137,8 +152,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _cp
+#undef PROGNAME
 
 /* date.c */
+#define PROGNAME "date"
 #define main _date_main
 #define _usage _date_usage
 #define _Prefs _date_Prefs
@@ -152,8 +169,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _date
+#undef PROGNAME
 
 /* df.c */
+#define PROGNAME "df"
 #define main _df_main
 #define _usage _df_usage
 #define _Prefs _df_Prefs
@@ -167,8 +186,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _df
+#undef PROGNAME
 
 /* dirname.c */
+#define PROGNAME "dirname"
 #define main _dirname_main
 #define _usage _dirname_usage
 #define _Prefs _dirname_Prefs
@@ -182,8 +203,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _dirname
+#undef PROGNAME
 
 /* du.c */
+#define PROGNAME "du"
 #define main _du_main
 #define _usage _du_usage
 #define _Prefs _du_Prefs
@@ -197,8 +220,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _du
+#undef PROGNAME
 
 /* echo.c */
+#define PROGNAME "echo"
 #define main _echo_main
 #define _usage _echo_usage
 #define _Prefs _echo_Prefs
@@ -212,8 +237,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _echo
+#undef PROGNAME
 
 /* false.c */
+#define PROGNAME "false"
 #define main _false_main
 #define _usage _false_usage
 #define _Prefs _false_Prefs
@@ -227,8 +254,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _false
+#undef PROGNAME
 
 /* file.c */
+#define PROGNAME "file"
 #define main _file_main
 #define _usage _file_usage
 #define _Prefs _file_Prefs
@@ -242,8 +271,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _file
+#undef PROGNAME
 
 /* find.c */
+#define PROGNAME "find"
 #define main _find_main
 #define _usage _find_usage
 #define _Prefs _find_Prefs
@@ -257,8 +288,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _find
+#undef PROGNAME
 
 /* grep.c */
+#define PROGNAME "grep"
 #define main _grep_main
 #define _usage _grep_usage
 #define _Prefs _grep_Prefs
@@ -272,8 +305,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _grep
+#undef PROGNAME
 
 /* head.c */
+#define PROGNAME "head"
 #define main _head_main
 #define _usage _head_usage
 #define _Prefs _head_Prefs
@@ -287,8 +322,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _head
+#undef PROGNAME
 
 /* id.c */
+#define PROGNAME "id"
 #define main _id_main
 #define _usage _id_usage
 #define _Prefs _id_Prefs
@@ -302,8 +339,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _id
+#undef PROGNAME
 
 /* kill.c */
+#define PROGNAME "kill"
 #define main _kill_main
 #define _usage _kill_usage
 #define _Prefs _kill_Prefs
@@ -317,8 +356,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _kill
+#undef PROGNAME
 
 /* link.c */
+#define PROGNAME "link"
 #define main _link_main
 #define _usage _link_usage
 #define _Prefs _link_Prefs
@@ -332,8 +373,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _link
+#undef PROGNAME
 
 /* ln.c */
+#define PROGNAME "ln"
 #define main _ln_main
 #define _usage _ln_usage
 #define _Prefs _ln_Prefs
@@ -347,8 +390,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _ln
+#undef PROGNAME
 
 /* locale.c */
+#define PROGNAME "locale"
 #define main _locale_main
 #define _usage _locale_usage
 #define _Prefs _locale_Prefs
@@ -362,8 +407,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _locale
+#undef PROGNAME
 
 /* logname.c */
+#define PROGNAME "logname"
 #define main _logname_main
 #define _usage _logname_usage
 #define _Prefs _logname_Prefs
@@ -377,8 +424,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _logname
+#undef PROGNAME
 
 /* ls.c */
+#define PROGNAME "ls"
 #define main _ls_main
 #define _usage _ls_usage
 #define _Prefs _ls_Prefs
@@ -392,8 +441,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _ls
+#undef PROGNAME
 
 /* mkdir.c */
+#define PROGNAME "mkdir"
 #define main _mkdir_main
 #define _usage _mkdir_usage
 #define _Prefs _mkdir_Prefs
@@ -407,8 +458,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _mkdir
+#undef PROGNAME
 
 /* mkfifo.c */
+#define PROGNAME "mkfifo"
 #define main _mkfifo_main
 #define _usage _mkfifo_usage
 #define _Prefs _mkfifo_Prefs
@@ -422,8 +475,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _mkfifo
+#undef PROGNAME
 
 /* more.c */
+#define PROGNAME "more"
 #define main _more_main
 #define _usage _more_usage
 #define _Prefs _more_Prefs
@@ -437,8 +492,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _more
+#undef PROGNAME
 
 /* mv.c */
+#define PROGNAME "mv"
 #define main _mv_main
 #define _usage _mv_usage
 #define _Prefs _mv_Prefs
@@ -452,8 +509,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _mv
+#undef PROGNAME
 
 /* nice.c */
+#define PROGNAME "nice"
 #define main _nice_main
 #define _usage _nice_usage
 #define _Prefs _nice_Prefs
@@ -467,8 +526,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _nice
+#undef PROGNAME
 
 /* pr.c */
+#define PROGNAME "pr"
 #define main _pr_main
 #define _usage _pr_usage
 #define _Prefs _pr_Prefs
@@ -482,8 +543,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _pr
+#undef PROGNAME
 
 /* printf.c */
+#define PROGNAME "printf"
 #define main _printf_main
 #define _usage _printf_usage
 #define _Prefs _printf_Prefs
@@ -497,8 +560,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _printf
+#undef PROGNAME
 
 /* ps.c */
+#define PROGNAME "ps"
 #define main _ps_main
 #define _usage _ps_usage
 #define _Prefs _ps_Prefs
@@ -512,8 +577,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _ps
+#undef PROGNAME
 
 /* pwd.c */
+#define PROGNAME "pwd"
 #define main _pwd_main
 #define _usage _pwd_usage
 #define _Prefs _pwd_Prefs
@@ -527,8 +594,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _pwd
+#undef PROGNAME
 
 /* renice.c */
+#define PROGNAME "renice"
 #define main _renice_main
 #define _usage _renice_usage
 #define _Prefs _renice_Prefs
@@ -542,8 +611,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _renice
+#undef PROGNAME
 
 /* rm.c */
+#define PROGNAME "rm"
 #define main _rm_main
 #define _usage _rm_usage
 #define _Prefs _rm_Prefs
@@ -557,8 +628,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _rm
+#undef PROGNAME
 
 /* rmdir.c */
+#define PROGNAME "rmdir"
 #define main _rmdir_main
 #define _usage _rmdir_usage
 #define _Prefs _rmdir_Prefs
@@ -572,8 +645,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _rmdir
+#undef PROGNAME
 
 /* sleep.c */
+#define PROGNAME "sleep"
 #define main _sleep_main
 #define _usage _sleep_usage
 #define _Prefs _sleep_Prefs
@@ -587,8 +662,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _sleep
+#undef PROGNAME
 
 /* strings.c */
+#define PROGNAME "strings"
 #define main _strings_main
 #define _usage _strings_usage
 #define _Prefs _strings_Prefs
@@ -602,8 +679,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _strings
+#undef PROGNAME
 
 /* tail.c */
+#define PROGNAME "tail"
 #define main _tail_main
 #define _usage _tail_usage
 #define _Prefs _tail_Prefs
@@ -617,8 +696,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _tail
+#undef PROGNAME
 
 /* test.c */
+#define PROGNAME "test"
 #define main _test_main
 #define _usage _test_usage
 #define _Prefs _test_Prefs
@@ -632,8 +713,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _test
+#undef PROGNAME
 
 /* time.c */
+#define PROGNAME "time"
 #define main _time_main
 #define _usage _time_usage
 #define _Prefs _time_Prefs
@@ -647,8 +730,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _time
+#undef PROGNAME
 
 /* touch.c */
+#define PROGNAME "touch"
 #define main _touch_main
 #define _usage _touch_usage
 #define _Prefs _touch_Prefs
@@ -662,8 +747,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _touch
+#undef PROGNAME
 
 /* true.c */
+#define PROGNAME "true"
 #define main _true_main
 #define _usage _true_usage
 #define _Prefs _true_Prefs
@@ -677,8 +764,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _true
+#undef PROGNAME
 
 /* tty.c */
+#define PROGNAME "tty"
 #define main _tty_main
 #define _usage _tty_usage
 #define _Prefs _tty_Prefs
@@ -692,8 +781,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _tty
+#undef PROGNAME
 
 /* uname.c */
+#define PROGNAME "uname"
 #define main _uname_main
 #define _usage _uname_usage
 #define _Prefs _uname_Prefs
@@ -707,8 +798,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _uname
+#undef PROGNAME
 
 /* uniq.c */
+#define PROGNAME "uniq"
 #define main _uniq_main
 #define _usage _uniq_usage
 #define _Prefs _uniq_Prefs
@@ -722,8 +815,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _uniq
+#undef PROGNAME
 
 /* unlink.c */
+#define PROGNAME "unlink"
 #define main _unlink_main
 #define _usage _unlink_usage
 #define _Prefs _unlink_Prefs
@@ -737,8 +832,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _unlink
+#undef PROGNAME
 
 /* wc.c */
+#define PROGNAME "wc"
 #define main _wc_main
 #define _usage _wc_usage
 #define _Prefs _wc_Prefs
@@ -752,8 +849,10 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _wc
+#undef PROGNAME
 
 /* who.c */
+#define PROGNAME "who"
 #define main _who_main
 #define _usage _who_usage
 #define _Prefs _who_Prefs
@@ -767,6 +866,7 @@
 #undef Prefs
 #undef _prefs_parse
 #undef _who
+#undef PROGNAME
 
 
 Call calls[] =
