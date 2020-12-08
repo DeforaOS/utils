@@ -35,6 +35,7 @@ static int _id_G(char const * user, int flagn);
 static int _id_g(char const * user, int flagn, int flagr);
 static int _id_u(char const * user, int flagn, int flagr);
 static int _id_all(char const * user);
+static gid_t * _id_getgroups(int * n);
 
 static int _id(char const * user, int flag, int flagn, int flagr)
 {
@@ -236,24 +237,8 @@ static int _id_all(char const * user)
 			return _id_error(gr->gr_name, 1);
 		}
 	}
-	if((n = getgroups(0, NULL)) < 0)
-	{
-		putchar('\n');
-		return _id_error("getgroups", 1);
-	}
-	if(n == 0)
-		groups = NULL;
-	else if((groups = malloc(sizeof(*groups) * n)) == NULL)
-	{
-		putchar('\n');
-		return _id_error("getgroups", 1);
-	}
-	else if((n = getgroups(n, groups)) < 0)
-	{
-		putchar('\n');
-		free(groups);
-		return _id_error("getgroups", 1);
-	}
+	if((groups = _id_getgroups(&n)) == NULL && n < 0)
+		return 1;
 	printf("%s", " groups=");
 	for(i = 0; i < n; i++)
 		if((gr = getgrgid(groups[i])) == NULL)
@@ -281,6 +266,31 @@ static struct group * _print_gid(gid_t gid)
 	else
 		printf("gid=%u(%s)", gr->gr_gid, gr->gr_name);
 	return gr;
+}
+
+static gid_t * _id_getgroups(int * n)
+{
+	gid_t * groups;
+
+	if((*n = getgroups(0, NULL)) < 0)
+	{
+		_id_error("getgroups", 1);
+		return NULL;
+	}
+	if(*n == 0)
+		groups = NULL;
+	else if((groups = malloc(sizeof(*groups) * (*n))) == NULL)
+	{
+		_id_error("malloc", 1);
+		return NULL;
+	}
+	if((*n = getgroups(*n, groups)) < 0)
+	{
+		free(groups);
+		_id_error("getgroups", 1);
+		return NULL;
+	}
+	return groups;
 }
 
 
