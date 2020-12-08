@@ -32,6 +32,7 @@ includes() {
 	$CAT << EOF
 
 /* $BASENAME */
+#define PROGNAME "$PROGRAM"
 #define main _${PROGRAM}_main
 #define _usage _${PROGRAM}_usage
 #define _Prefs _${PROGRAM}_Prefs
@@ -45,6 +46,7 @@ includes() {
 #undef Prefs
 #undef _prefs_parse
 #undef _${PROGRAM}
+#undef PROGNAME
 EOF
 }
 
