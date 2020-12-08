@@ -87,9 +87,10 @@ static int _ps(Prefs * prefs)
 			continue;
 		if(gr != NULL && st.st_gid != gr->gr_gid)
 			continue;
-		snprintf(buf, sizeof(buf), "%s/%s/%s", proc, de->d_name,
-				"cmdline");
-		if((fp = fopen(buf, "r")) != NULL)
+		if(snprintf(buf, sizeof(buf), "%s/%s/%s", proc, de->d_name,
+					"cmdline") >= (int)sizeof(buf))
+			buf[0] = '\0';
+		else if((fp = fopen(buf, "r")) != NULL)
 		{
 			s = fread(buf, sizeof(*buf), sizeof(buf) - 1, fp);
 			fclose(fp);
@@ -97,7 +98,8 @@ static int _ps(Prefs * prefs)
 		}
 		else
 			buf[0] = '\0';
-		printf("%5lu %5lu %s\n", pid, (unsigned long)st.st_uid, buf);
+		printf("%5lu %5lu%s%s\n", pid, (unsigned long)st.st_uid,
+				(buf[0] != '\0') ? " " : "", buf);
 	}
 	closedir(dir);
 	return 0;
