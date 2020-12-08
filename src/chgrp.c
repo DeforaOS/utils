@@ -185,6 +185,7 @@ int main(int argc, char * argv[])
 				/* FIXME implement */
 				fprintf(stderr, "%s%c%s", PROGNAME ": -", o,
 						": Not yet implemented\n");
+				return 2;
 			default:
 				return _usage();
 		}
