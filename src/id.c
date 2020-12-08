@@ -187,7 +187,9 @@ static int _id_all(char const * user)
 	struct passwd * pw;
 	struct group * gr;
 	char * u;
-	char ** p;
+	int n;
+	gid_t * groups;
+	int i;
 
 	if(user == NULL)
 	{
@@ -234,15 +236,34 @@ static int _id_all(char const * user)
 			return _id_error(gr->gr_name, 1);
 		}
 	}
-	printf("%s%u(%s)", " groups=", (unsigned)pw->pw_gid, u);
-	setgrent();
-	for(gr = getgrent(); gr != NULL; gr = getgrent())
-		for(p = gr->gr_mem; p != NULL && *p != NULL; p++)
-			if(strcmp(u, *p) == 0)
-				printf(",%u(%s)", (unsigned)gr->gr_gid,
-						gr->gr_name);
+	if((n = getgroups(0, NULL)) < 0)
+	{
+		putchar('\n');
+		return _id_error("getgroups", 1);
+	}
+	if(n == 0)
+		groups = NULL;
+	else if((groups = malloc(sizeof(*groups) * n)) == NULL)
+	{
+		putchar('\n');
+		return _id_error("getgroups", 1);
+	}
+	else if((n = getgroups(n, groups)) < 0)
+	{
+		putchar('\n');
+		free(groups);
+		return _id_error("getgroups", 1);
+	}
+	printf("%s", " groups=");
+	for(i = 0; i < n; i++)
+		if((gr = getgrgid(groups[i])) == NULL)
+			printf("%s%u", (i == 0) ? "" : ",",
+					(unsigned)gr->gr_gid);
+		else
+			printf("%s%u(%s)", (i == 0) ? "" : ",",
+					(unsigned)gr->gr_gid, gr->gr_name);
 	putchar('\n');
-	endgrent();
+	free(groups);
 	free(u);
 	return 0;
 }
