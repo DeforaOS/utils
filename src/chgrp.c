@@ -25,6 +25,11 @@
 #include <stdio.h>
 #include <string.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"chgrp"
+#endif
+
 
 /* chgrp */
 /* types */
@@ -66,7 +71,7 @@ static int _chgrp_grp_error(char * group)
 {
 	if(errno == 0)
 	{
-		fprintf(stderr, "%s%s%s", "chgrp: ", group,
+		fprintf(stderr, "%s%s%s", PROGNAME ": ", group,
 				": Unknown group\n");
 		return 2;
 	}
@@ -75,7 +80,7 @@ static int _chgrp_grp_error(char * group)
 
 static int _chgrp_error(char * message, int ret)
 {
-	fputs("chgrp: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -150,8 +155,8 @@ static int _chgrp_do(int opts, gid_t gid, char * file)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: chgrp [-hR] group file ...\n\
-       chgrp -R [-H | -L | -P] group file ...\n\
+	fputs("Usage: " PROGNAME " [-hR] group file ...\n\
+       " PROGNAME " -R [-H | -L | -P] group file ...\n\
   -h    Set the group IDs on symbolic links\n\
   -R    Recursively change file group IDs\n", stderr);
 	return 1;
@@ -178,7 +183,7 @@ int main(int argc, char * argv[])
 			case 'L':
 			case 'P':
 				/* FIXME implement */
-				fprintf(stderr, "%s%c%s", "chgrp: -", o,
+				fprintf(stderr, "%s%c%s", PROGNAME ": -", o,
 						": Not yet implemented\n");
 			default:
 				return _usage();

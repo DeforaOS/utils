@@ -19,6 +19,11 @@
 #include <stdio.h>
 #include <string.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"cat"
+#endif
+
 
 /* cat */
 /* types */
@@ -68,7 +73,7 @@ static int _cat(OutputDelay od, int argc, char * argv[])
 
 static int _cat_error(char const * message, int ret)
 {
-	fputs("cat: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -97,7 +102,7 @@ static int _write_nonbuf(int c)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: cat [-u][file ...]\n\
+	fputs("Usage: " PROGNAME " [-u][file ...]\n\
   -u	Write without delay\n", stderr);
 	return 1;
 }

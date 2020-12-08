@@ -27,6 +27,11 @@
 #include <string.h>
 #include <ctype.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"chown"
+#endif
+
 
 /* types */
 typedef int Prefs;
@@ -65,7 +70,7 @@ static int _chown(Prefs * prefs, char * owner, int argc, char * argv[])
 
 static int _chown_error(char * message, int ret)
 {
-	fputs("chown: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -112,8 +117,8 @@ static int _chown_id_error(char * message, char * unknown, int ret)
 {
 	if(errno != 0)
 		return _chown_error(message, ret);
-	fprintf(stderr, "%s%s%s%s%s", "chown: ", message, ": Unknown ", unknown,
-			"\n");
+	fprintf(stderr, "%s%s%s%s%s", PROGNAME ": ", message, ": Unknown ",
+			unknown, "\n");
 	return ret;
 }
 
@@ -202,8 +207,8 @@ static int _chown_do(Prefs * prefs, uid_t uid, gid_t gid, char * file)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: chown [-hR] owner[:group] file ...\n\
-       chown -R [-H | -L | -P] owner[:group] file ...\n\
+	fputs("Usage: " PROGNAME " [-hR] owner[:group] file ...\n\
+       " PROGNAME " -R [-H | -L | -P] owner[:group] file ...\n\
   -h	Set the user and group IDs on symbolic links\n\
   -R	Recursively change file user and group IDs\n", stderr);
 	return 1;
@@ -228,7 +233,7 @@ int main(int argc, char * argv[])
 			case 'H':
 			case 'L':
 			case 'P':
-				fprintf(stderr, "%s%c%s", "chown: -", o,
+				fprintf(stderr, "%s%c%s", PROGNAME ": -", o,
 						": Not yet implemented\n");
 			default:
 				return _usage();

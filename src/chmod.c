@@ -26,6 +26,11 @@
 #define COMMON_MODE
 #include "common.c"
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"chmod"
+#endif
+
 
 /* types */
 typedef int Prefs;
@@ -52,7 +57,7 @@ static int _chmod(Prefs prefs, mode_t mode, int filec, char * filev[])
 
 static int _chmod_error(char const * message, int ret)
 {
-	fputs("chmod: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -121,7 +126,7 @@ static int _chmod_do_recursive_do(Prefs prefs, mode_t mode, char * file)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: chmod [-R] mode file\n\
+	fputs("Usage: " PROGNAME " [-R] mode file\n\
   -R	Recursively change file mode bits\n", stderr);
 	return 1;
 }
