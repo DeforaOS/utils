@@ -59,6 +59,9 @@ static int _id_error(char const * message, int ret)
 /* _id_G */
 static int _id_G(char const * user, int flagn)
 {
+	gid_t * groups;
+	int n;
+	int i;
 	struct group * gr;
 	struct passwd * pw;
 	char * g;
@@ -66,50 +69,29 @@ static int _id_G(char const * user, int flagn)
 
 	if(user == NULL)
 	{
-		if((pw = getpwuid(geteuid())) == NULL)
-			return _id_error("getpwuid", 1);
-		if((gr = getgrgid(getegid())) == NULL)
-			return _id_error("getgrgid", 1);
-		if(getegid() != getgid())
-		{
-			if(flagn == 0)
-				printf("%u %u", (unsigned)getegid(),
-						(unsigned)getgid());
+		if((groups = _id_getgroups(&n)) == NULL && n < 0)
+			return 1;
+		for(i = 0; i < n; i++)
+			if(flagn != 0 && (gr = getgrgid(groups[i])) != NULL)
+				printf("%s%s", (i > 0) ? " " : "", gr->gr_name);
 			else
-			{
-				fputs(gr->gr_name, stdout);
-				if((gr = getgrgid(getgid())) == NULL)
-				{
-					putchar('\n');
-					return _id_error("getgrgid", 1);
-				}
-				printf(" %s", gr->gr_name);
-			}
-		}
-		else
-		{
-			if(flagn == 0)
-				printf("%u", (unsigned)getgid());
-			else
-				fputs(gr->gr_name, stdout);
-		}
+				printf("%s%u", (i > 0) ? " " : "", groups[i]);
+		putchar('\n');
+		free(groups);
+		return 0;
 	}
+	if((pw = getpwnam(user)) == NULL)
+		return _id_error(user, 1);
+	if((gr = getgrgid(pw->pw_gid)) == NULL)
+		return _id_error("getgrgid", 1);
+	if(flagn == 0)
+		printf("%u", (unsigned)gr->gr_gid);
 	else
-	{
-		if((pw = getpwnam(user)) == NULL)
-			return _id_error(user, 1);
-		if((gr = getgrgid(pw->pw_gid)) == NULL)
-			return _id_error("getgrgid", 1);
-		if(flagn == 0)
-			printf("%u", (unsigned)gr->gr_gid);
-		else
-			fputs(gr->gr_name, stdout);
-	}
+		fputs(gr->gr_name, stdout);
 	if((g = strdup(gr->gr_name)) == NULL)
 		return _id_error(gr->gr_name, 1);
 	setgrent();
 	for(gr = getgrent(); gr != NULL; gr = getgrent())
-	{
 		for(p = gr->gr_mem; p != NULL && *p != NULL; p++)
 		{
 			if(strcmp(pw->pw_name, *p) != 0
@@ -120,7 +102,6 @@ static int _id_G(char const * user, int flagn)
 			else
 				printf(" %s", gr->gr_name);
 		}
-	}
 	putchar('\n');
 	endgrent();
 	free(g);
