@@ -35,6 +35,7 @@ static int _id_G(char const * user, int flagn);
 static int _id_g(char const * user, int flagn, int flagr);
 static int _id_u(char const * user, int flagn, int flagr);
 static int _id_all(char const * user);
+static gid_t * _id_getgroups(int * n);
 
 static int _id(char const * user, int flag, int flagn, int flagr)
 {
@@ -58,6 +59,9 @@ static int _id_error(char const * message, int ret)
 /* _id_G */
 static int _id_G(char const * user, int flagn)
 {
+	gid_t * groups;
+	int n;
+	int i;
 	struct group * gr;
 	struct passwd * pw;
 	char * g;
@@ -65,50 +69,29 @@ static int _id_G(char const * user, int flagn)
 
 	if(user == NULL)
 	{
-		if((pw = getpwuid(geteuid())) == NULL)
-			return _id_error("getpwuid", 1);
-		if((gr = getgrgid(getegid())) == NULL)
-			return _id_error("getgrgid", 1);
-		if(getegid() != getgid())
-		{
-			if(flagn == 0)
-				printf("%u %u", (unsigned)getegid(),
-						(unsigned)getgid());
+		if((groups = _id_getgroups(&n)) == NULL && n < 0)
+			return 1;
+		for(i = 0; i < n; i++)
+			if(flagn != 0 && (gr = getgrgid(groups[i])) != NULL)
+				printf("%s%s", (i > 0) ? " " : "", gr->gr_name);
 			else
-			{
-				fputs(gr->gr_name, stdout);
-				if((gr = getgrgid(getgid())) == NULL)
-				{
-					putchar('\n');
-					return _id_error("getgrgid", 1);
-				}
-				printf(" %s", gr->gr_name);
-			}
-		}
-		else
-		{
-			if(flagn == 0)
-				printf("%u", (unsigned)getgid());
-			else
-				fputs(gr->gr_name, stdout);
-		}
+				printf("%s%u", (i > 0) ? " " : "", groups[i]);
+		putchar('\n');
+		free(groups);
+		return 0;
 	}
+	if((pw = getpwnam(user)) == NULL)
+		return _id_error(user, 1);
+	if((gr = getgrgid(pw->pw_gid)) == NULL)
+		return _id_error("getgrgid", 1);
+	if(flagn == 0)
+		printf("%u", (unsigned)gr->gr_gid);
 	else
-	{
-		if((pw = getpwnam(user)) == NULL)
-			return _id_error(user, 1);
-		if((gr = getgrgid(pw->pw_gid)) == NULL)
-			return _id_error("getgrgid", 1);
-		if(flagn == 0)
-			printf("%u", (unsigned)gr->gr_gid);
-		else
-			fputs(gr->gr_name, stdout);
-	}
+		fputs(gr->gr_name, stdout);
 	if((g = strdup(gr->gr_name)) == NULL)
 		return _id_error(gr->gr_name, 1);
 	setgrent();
 	for(gr = getgrent(); gr != NULL; gr = getgrent())
-	{
 		for(p = gr->gr_mem; p != NULL && *p != NULL; p++)
 		{
 			if(strcmp(pw->pw_name, *p) != 0
@@ -119,7 +102,6 @@ static int _id_G(char const * user, int flagn)
 			else
 				printf(" %s", gr->gr_name);
 		}
-	}
 	putchar('\n');
 	endgrent();
 	free(g);
@@ -187,7 +169,9 @@ static int _id_all(char const * user)
 	struct passwd * pw;
 	struct group * gr;
 	char * u;
-	char ** p;
+	int n;
+	gid_t * groups;
+	int i;
 
 	if(user == NULL)
 	{
@@ -234,15 +218,18 @@ static int _id_all(char const * user)
 			return _id_error(gr->gr_name, 1);
 		}
 	}
-	printf("%s%u(%s)", " groups=", (unsigned)pw->pw_gid, u);
-	setgrent();
-	for(gr = getgrent(); gr != NULL; gr = getgrent())
-		for(p = gr->gr_mem; p != NULL && *p != NULL; p++)
-			if(strcmp(u, *p) == 0)
-				printf(",%u(%s)", (unsigned)gr->gr_gid,
-						gr->gr_name);
+	if((groups = _id_getgroups(&n)) == NULL && n < 0)
+		return 1;
+	printf("%s", " groups=");
+	for(i = 0; i < n; i++)
+		if((gr = getgrgid(groups[i])) == NULL)
+			printf("%s%u", (i == 0) ? "" : ",",
+					(unsigned)gr->gr_gid);
+		else
+			printf("%s%u(%s)", (i == 0) ? "" : ",",
+					(unsigned)gr->gr_gid, gr->gr_name);
 	putchar('\n');
-	endgrent();
+	free(groups);
 	free(u);
 	return 0;
 }
@@ -260,6 +247,31 @@ static struct group * _print_gid(gid_t gid)
 	else
 		printf("gid=%u(%s)", gr->gr_gid, gr->gr_name);
 	return gr;
+}
+
+static gid_t * _id_getgroups(int * n)
+{
+	gid_t * groups;
+
+	if((*n = getgroups(0, NULL)) < 0)
+	{
+		_id_error("getgroups", 1);
+		return NULL;
+	}
+	if(*n == 0)
+		groups = NULL;
+	else if((groups = malloc(sizeof(*groups) * (*n))) == NULL)
+	{
+		_id_error("malloc", 1);
+		return NULL;
+	}
+	if((*n = getgroups(*n, groups)) < 0)
+	{
+		free(groups);
+		_id_error("getgroups", 1);
+		return NULL;
+	}
+	return groups;
 }
 
 
