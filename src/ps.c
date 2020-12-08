@@ -25,6 +25,11 @@
 #include <pwd.h>
 #include <limits.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"ps"
+#endif
+
 
 /* ps */
 /* private */
@@ -102,7 +107,7 @@ static int _ps(Prefs * prefs)
 /* ps_error */
 static int _ps_error(char const * message, int ret)
 {
-	fputs("ps: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -111,7 +116,7 @@ static int _ps_error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: ps [-g group][-p pid][-u username]\n", stderr);
+	fputs("Usage: " PROGNAME " [-g group][-p pid][-u username]\n", stderr);
 	return 1;
 }
 
