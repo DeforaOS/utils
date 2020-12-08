@@ -22,6 +22,11 @@
 #include <string.h>
 #include <errno.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"cksum"
+#endif
+
 
 /* constants */
 static unsigned long crctab[] =
@@ -108,7 +113,7 @@ static int _cksum(int argc, char * argv[])
 
 static int _cksum_error(char * message, int ret)
 {
-	fputs("cksum: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -159,7 +164,7 @@ static int _do_is_directory(FILE * fp)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: cksum [file...]\n", stderr);
+	fputs("Usage: " PROGNAME " [file...]\n", stderr);
 	return 1;
 }
 

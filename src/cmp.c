@@ -19,6 +19,11 @@
 #include <stdio.h>
 #include <string.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"cmp"
+#endif
+
 
 /* types */
 typedef enum _OutputType
@@ -56,7 +61,7 @@ static int _cmp(OutputType ot, char const * file1, char const * file2)
 
 static int _cmp_error(char const * message, int ret)
 {
-	fputs("cmp: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -79,8 +84,8 @@ static int _cmp_files(OutputType ot, char const * file1, char const * file2,
 		if(c1 == EOF || c2 == EOF)
 		{
 			if(ot != OT_NONE)
-				fprintf(stderr, "%s%s\n", "cmp: EOF on ",
-						c1 == EOF ? file1 : file2);
+				fprintf(stderr, "%s%s\n", PROGNAME ": EOF on ",
+						(c1 == EOF) ? file1 : file2);
 			ret = 1;
 			break;
 		}
@@ -113,7 +118,7 @@ static int _cmp_files(OutputType ot, char const * file1, char const * file2,
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: cmp [-l|-s] file1 file2\n\
+	fputs("Usage: " PROGNAME " [-l|-s] file1 file2\n\
   -l	Write the byte number and the differing byte for each difference\n\
   -s	Write nothing for differing bytes\n", stderr);
 	return 2;

@@ -19,6 +19,11 @@
 #include <stdio.h>
 #include <time.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"date"
+#endif
+
 
 /* date */
 /* private */
@@ -51,7 +56,7 @@ static int _date(char const * format)
 /* error */
 static int _date_error(char const * message, int ret)
 {
-	fputs("date: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -60,7 +65,7 @@ static int _date_error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: date [+format]\n", stderr);
+	fputs("Usage: " PROGNAME " [+format]\n", stderr);
 	return 1;
 }
 

@@ -23,6 +23,11 @@
 #include <stdio.h>
 #include <string.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"df"
+#endif
+
 
 /* Prefs */
 typedef int Prefs;
@@ -52,7 +57,7 @@ static int _df(Prefs * prefs, int filec, char * filev[])
 
 static int _df_error(char const * message, int ret)
 {
-	fputs("df: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -147,7 +152,7 @@ static int _df_do(Prefs * prefs, char const * file)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: df [-k][-P][file...]\n", stderr);
+	fputs("Usage: " PROGNAME " [-k][-P][file...]\n", stderr);
 	return 1;
 }
 
