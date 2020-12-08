@@ -1,6 +1,6 @@
 #!/bin/sh
 #$Id$
-#Copyright (c) 2009-2017 Pierre Pronchery <khorben@defora.org>
+#Copyright (c) 2009-2020 Pierre Pronchery <khorben@defora.org>
 #This file is part of DeforaOS Unix utils
 #This program is free software: you can redistribute it and/or modify
 #it under the terms of the GNU General Public License as published by
