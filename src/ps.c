@@ -49,7 +49,7 @@ static int _ps(Prefs * prefs)
 	char const proc[] = "/proc";
 	struct passwd * pw = NULL;
 	struct group * gr = NULL;
-	char buf[256];
+	char buf[1024];
 	DIR * dir;
 	struct dirent * de;
 	long pid;
