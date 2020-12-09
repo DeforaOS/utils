@@ -43,5 +43,5 @@ int main(int argc, char * argv[])
 			default:
 				return _usage();
 		}
-	return 1;
+	return 2;
 }
