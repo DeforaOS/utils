@@ -95,9 +95,11 @@ static int _prefs_ttime(char * string, time_t * time)
 		case 15:
 		case 12:
 			ret += _ttime_century(p, &t);
+			/* fallthrough */
 		case 13:
 		case 10:
 			ret += _ttime_year(p, &t);
+			/* fallthrough */
 		case 11:
 		case 8:
 			ret += _ttime_month(p, &t);
