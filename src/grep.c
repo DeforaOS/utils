@@ -32,7 +32,7 @@
 /* private */
 /* types */
 /* Prefs */
-typedef int Prefs;
+typedef unsigned int Prefs;
 #define GREP_PREFS_n 0x1
 #define GREP_PREFS_q 0x2
 #define GREP_PREFS_s 0x4

@@ -33,7 +33,7 @@
 
 
 /* types */
-typedef int Prefs;
+typedef unsigned int Prefs;
 #define CHMOD_PREFS_R 1
 
 

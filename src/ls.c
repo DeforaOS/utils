@@ -38,7 +38,7 @@
 
 
 /* Prefs */
-typedef int Prefs;
+typedef unsigned int Prefs;
 #define LS_PREFS_C 00001
 #define LS_PREFS_F 00002
 #define LS_PREFS_R 00004

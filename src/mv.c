@@ -34,7 +34,7 @@
 
 
 /* types */
-typedef int Prefs;
+typedef unsigned int Prefs;
 #define MV_PREFS_f 0x1
 #define MV_PREFS_i 0x2
 

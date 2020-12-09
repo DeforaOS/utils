@@ -34,12 +34,12 @@
 
 
 /* types */
-typedef int Prefs;
-#define CHOWN_PREFS_h 1
-#define CHOWN_PREFS_R 2
-#define CHOWN_PREFS_H 4
-#define CHOWN_PREFS_L 8
-#define CHOWN_PREFS_P 12
+typedef unsigned int Prefs;
+#define CHOWN_PREFS_h 0x1
+#define CHOWN_PREFS_R 0x2
+#define CHOWN_PREFS_H 0x4
+#define CHOWN_PREFS_L 0x8
+#define CHOWN_PREFS_P 0xc
 
 
 /* chown */

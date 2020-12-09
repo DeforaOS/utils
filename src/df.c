@@ -30,7 +30,7 @@
 
 
 /* Prefs */
-typedef int Prefs;
+typedef unsigned int Prefs;
 #define DF_PREFS_k 1
 #define DF_PREFS_P 2
 

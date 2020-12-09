@@ -27,7 +27,7 @@
 
 
 /* types */
-typedef int Prefs;
+typedef unsigned int Prefs;
 #define UNIQ_PREFS_c 1
 #define UNIQ_PREFS_d 2
 #define UNIQ_PREFS_u 4

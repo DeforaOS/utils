@@ -26,7 +26,7 @@
 
 
 /* prefs */
-typedef int Prefs;
+typedef unsigned int Prefs;
 #define LOCALE_PREFS_a 0x1
 #define LOCALE_PREFS_m 0x2
 #define LOCALE_PREFS_c 0x4

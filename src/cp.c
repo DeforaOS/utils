@@ -35,7 +35,7 @@
 
 
 /* types */
-typedef int Prefs;
+typedef unsigned int Prefs;
 #define CP_PREFS_f 0x01
 #define CP_PREFS_i 0x02
 #define CP_PREFS_p 0x04

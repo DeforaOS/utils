@@ -36,13 +36,11 @@
 
 
 /* types */
-typedef int Prefs;
+typedef unsigned int Prefs;
 #define FIND_PREFS_H 1
 #define FIND_PREFS_L 2
 
 
-/* find */
-/* types */
 typedef enum _FindCmd
 {
 	FC_INVALID = -1,

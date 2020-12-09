@@ -31,7 +31,7 @@
 
 
 /* types */
-typedef int Prefs;
+typedef unsigned int Prefs;
 #define RM_PREFS_f 0x1
 #define RM_PREFS_i 0x2
 #define RM_PREFS_R 0x4

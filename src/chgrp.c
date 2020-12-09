@@ -33,12 +33,12 @@
 
 /* chgrp */
 /* types */
-typedef int Prefs;
-#define CHGRP_PREFS_h 1
-#define CHGRP_PREFS_R 2
-#define CHGRP_PREFS_H 4
-#define CHGRP_PREFS_L 8
-#define CHGRP_PREFS_P 12
+typedef unsigned int Prefs;
+#define CHGRP_PREFS_h 0x1
+#define CHGRP_PREFS_R 0x2
+#define CHGRP_PREFS_H 0x4
+#define CHGRP_PREFS_L 0x8
+#define CHGRP_PREFS_P 0xc
 
 
 /* functions */

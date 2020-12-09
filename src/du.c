@@ -30,13 +30,13 @@
 
 
 /* Prefs */
-typedef int Prefs;
-#define DU_PREFS_a 1
-#define DU_PREFS_s 2 
-#define DU_PREFS_x 4
-#define DU_PREFS_k 8 
-#define DU_PREFS_H 16
-#define DU_PREFS_L 48
+typedef unsigned int Prefs;
+#define DU_PREFS_a 0x01
+#define DU_PREFS_s 0x02 
+#define DU_PREFS_x 0x04
+#define DU_PREFS_k 0x08 
+#define DU_PREFS_H 0x10
+#define DU_PREFS_L 0x30
 
 
 /* du */

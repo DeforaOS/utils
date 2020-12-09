@@ -27,7 +27,7 @@
 
 
 /* prefs */
-typedef int Prefs;
+typedef unsigned int Prefs;
 #define FILE_PREFS_h	1
 #define FILE_PREFS_m	2
 #define FILE_PREFS_M	4
