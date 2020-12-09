@@ -102,7 +102,7 @@ static int _find_error_user(char const * message, char const * error, int ret)
 }
 
 /* find_do */
-static int _do_cmd(Prefs * prefs, char const * pathname, struct stat * st,
+static int _do_cmd(char const * pathname, struct stat * st,
 		int cmdc, char * cmdv[]);
 static int _do_dir(Prefs * prefs, char const * pathname, int cmdc,
 		char * cmdv[]);
@@ -118,7 +118,7 @@ static int _find_do(Prefs * prefs, char const * pathname, int cmdc,
 				|| stat(pathname, &st) != 0)
 			return _find_error(pathname, 1);
 	}
-	if(_do_cmd(prefs, pathname, &st, cmdc, cmdv) != 0)
+	if(_do_cmd(pathname, &st, cmdc, cmdv) != 0)
 		return 0;
 	if(S_ISDIR(st.st_mode))
 		return _do_dir(prefs, pathname, cmdc, cmdv);
@@ -129,7 +129,7 @@ static int _find_do(Prefs * prefs, char const * pathname, int cmdc,
 static FindCmd _cmd_enum(char const * cmd);
 static int _cmd_check_arg(int * i, int cmdc, char const * cmd);
 
-static int _do_cmd(Prefs * prefs, char const * pathname, struct stat * st,
+static int _do_cmd(char const * pathname, struct stat * st,
 		int cmdc, char * cmdv[])
 {
 	int ret = 0;
