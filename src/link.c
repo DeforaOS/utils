@@ -18,6 +18,11 @@
 #include <unistd.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"link"
+#endif
+
 
 /* link */
 static int _link_error(char const * message, int ret);
@@ -31,7 +36,7 @@ static int _link(char * file1, char * file2)
 
 static int _link_error(char const * message, int ret)
 {
-	fputs("link: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -40,7 +45,7 @@ static int _link_error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: link file1 file2\n", stderr);
+	fputs("Usage: " PROGNAME " file1 file2\n", stderr);
 	return 1;
 }
 

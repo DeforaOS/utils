@@ -24,6 +24,11 @@
 #define COMMON_MODE
 #include "common.c"
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"mkfifo"
+#endif
+
 
 /* mkfifo */
 static int _mkfifo_error(char const * message, int ret);
@@ -41,7 +46,7 @@ static int _mkfifo(mode_t mode, int filec, char * filev[])
 
 static int _mkfifo_error(char const * message, int ret)
 {
-	fputs("mkfifo: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -50,7 +55,7 @@ static int _mkfifo_error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: mkfifo [-m mode] file...\n\
+	fputs("Usage: " PROGNAME " [-m mode] file...\n\
   -m	Create fifo with the specified mode value\n", stderr);
 	return 1;
 }

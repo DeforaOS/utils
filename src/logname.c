@@ -18,6 +18,11 @@
 #include <unistd.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"logname"
+#endif
+
 
 /* logname */
 static int _logname_error(char const * message, int ret);
@@ -34,7 +39,7 @@ static int _logname(void)
 
 static int _logname_error(char const * message, int ret)
 {
-	fputs("logname: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -43,7 +48,7 @@ static int _logname_error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: logname\n", stderr);
+	fputs("Usage: " PROGNAME "\n", stderr);
 	return 1;
 }
 

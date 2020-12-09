@@ -21,6 +21,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"nice"
+#endif
+
 
 /* nice */
 static int _nice_error(char const * message, int ret);
@@ -35,7 +40,7 @@ static int _nice(int nice, char * argv[])
 
 static int _nice_error(char const * message, int ret)
 {
-	fputs("nice: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -44,7 +49,7 @@ static int _nice_error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: nice [-n increment] utility [argument...]\n\
+	fputs("Usage: " PROGNAME " [-n increment] utility [argument...]\n\
   -n	Priority to set\n", stderr);
 	return 1;
 }

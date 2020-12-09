@@ -22,6 +22,11 @@
 #include <string.h>
 #include <time.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"pr"
+#endif
+
 
 /* pr */
 /* types */
@@ -71,7 +76,7 @@ static int _pr(Prefs * prefs, int filec, char * filev[])
 
 static int _pr_error(char const * message, int ret)
 {
-	fputs("pr: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -196,7 +201,7 @@ static void _do_footer(Prefs * prefs)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: pr [+page][-column][-adFmrt][-e [char][ gap]]"
+	fputs("Usage: " PROGNAME " [+page][-column][-adFmrt][-e [char][ gap]]"
 			"[-h header][-i[char][gap]]\n"
 			"[-l lines][-n [char][width]][-o offset][-s[char]]"
 			"[-w width] file...\n",

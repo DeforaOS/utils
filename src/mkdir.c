@@ -24,6 +24,11 @@
 #define COMMON_MODE
 #include "common.c"
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"mkdir"
+#endif
+
 
 /* mkdir */
 static int _mkdir_error(char const * message, int ret);
@@ -47,7 +52,7 @@ static int _mkdir(int flagp, mode_t mode, int filec, char * filev[])
 
 static int _mkdir_error(char const * message, int ret)
 {
-	fputs("mkdir: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -81,7 +86,7 @@ static int _mkdir_p(mode_t mode, char * pathname)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: mkdir [-p][-m mode] dir...\n\
+	fputs("Usage: " PROGNAME " [-p][-m mode] dir...\n\
   -p	Create any missing intermediate pathname components\n\
   -m	File permission bits of the newly-created directory\n", stderr);
 	return 1;

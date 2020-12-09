@@ -21,6 +21,11 @@
 #include <string.h>
 #include <limits.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"more"
+#endif
+
 
 /* more */
 /* private */
@@ -86,7 +91,7 @@ static int _more_do(Prefs * prefs, char const * filename)
 /* more_error */
 static int _more_error(char const * message, int ret)
 {
-	fputs("more: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -95,7 +100,7 @@ static int _more_error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: more [file...]\n", stderr);
+	fputs("Usage: " PROGNAME " [file...]\n", stderr);
 	return 1;
 }
 

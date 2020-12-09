@@ -24,6 +24,11 @@
 #include <strings.h>
 #include <errno.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"kill"
+#endif
+
 
 /* kill */
 /* private */
@@ -120,7 +125,7 @@ static int _kill(int sig, int argc, char * argv[])
 		pid = strtol(argv[i], &p, 10);
 		if(argv[i][0] == '\0' || *p != '\0')
 		{
-			fprintf(stderr, "%s%s%s", "kill: ", argv[i],
+			fprintf(stderr, "%s%s%s", PROGNAME ": ", argv[i],
 					": Invalid process number\n");
 			ret |= 1;
 			continue;
@@ -146,7 +151,7 @@ static int _kill_list(int argc, char * argv[])
 /* error */
 static int _kill_error(char const * message, int ret)
 {
-	fprintf(stderr, "%s: %s\n", "kill", message);
+	fprintf(stderr, "%s: %s\n", PROGNAME, message);
 	return ret;
 }
 
@@ -154,8 +159,8 @@ static int _kill_error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: kill -s signal_name pid...\n\
-       kill -l [exit_status]\n\
+	fputs("Usage: " PROGNAME " -s signal_name pid...\n\
+       " PROGNAME " -l [exit_status]\n\
   -l	Write all signal values supported\n\
   -s	Specify the signal to send\n", stderr);
 	return 1;

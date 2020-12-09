@@ -19,6 +19,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"locale"
+#endif
+
 
 /* prefs */
 typedef int Prefs;
@@ -92,8 +97,8 @@ static int _locale_do(Prefs * p, char const * locale)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: locale [-a | -m]\n\
-      locale [-ck]\n", stderr);
+	fputs("Usage: " PROGNAME " [-a | -m]\n\
+      " PROGNAME " [-ck]\n", stderr);
 	return 1;
 }
 

@@ -25,6 +25,11 @@
 #include <errno.h>
 #include <string.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"ln"
+#endif
+
 
 /* types */
 /* force link */
@@ -62,7 +67,7 @@ static int _ln(LinkForce lf, LinkType lt, int argc, char * argv[])
 
 static int _ln_error(char const * message, int ret)
 {
-	fputs("ln: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -113,8 +118,8 @@ static int _ln_multiple(LinkForce lf, LinkType lt, int argc, char * argv[])
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: ln [-fs] source_file target_file\n\
-       ln [-fs] source_file ... target_dir\n\
+	fputs("Usage: " PROGNAME " [-fs] source_file target_file\n\
+       " PROGNAME " [-fs] source_file ... target_dir\n\
   -f	Force existing destination pathnames to be removed\n\
   -s	Create symbolic links instead of hard links\n", stderr);
 	return 1;

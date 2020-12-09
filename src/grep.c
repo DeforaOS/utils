@@ -22,6 +22,7 @@
 #include <regex.h>
 #include <errno.h>
 
+/* constants */
 #ifndef PROGNAME
 # define PROGNAME	"grep"
 #endif

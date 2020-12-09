@@ -19,6 +19,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"head"
+#endif
+
 
 /* head */
 static int _head_error(char const * message, int ret);
@@ -39,7 +44,7 @@ static int _head(int flgn, int filec, char * filev[])
 
 static int _head_error(char const * message, int ret)
 {
-	fputs("head: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -69,7 +74,7 @@ static int _head_do(int flgn, char const * filename)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: head [-n number][file...]\n\
+	fputs("Usage: " PROGNAME " [-n number][file...]\n\
   -n	Print first number lines on standard output\n", stderr);
 	return 1;
 }
