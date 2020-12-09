@@ -19,6 +19,11 @@
 #include <unistd.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"uname"
+#endif
+
 
 /* uname */
 static int _uname(int m, int n, int r, int s, int v)
@@ -28,7 +33,7 @@ static int _uname(int m, int n, int r, int s, int v)
 
 	if(uname(&buf) != 0)
 	{
-		perror("uname");
+		perror(PROGNAME);
 		return 1;
 	}
 	if(s && (spacing = 1))
@@ -51,7 +56,7 @@ static int _uname(int m, int n, int r, int s, int v)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: uname [-snrvma]\n\
+	fputs("Usage: " PROGNAME " [-snrvma]\n\
   -s	Operating system name\n\
   -n	Name of this node on the network\n\
   -r	Operating system release name\n\

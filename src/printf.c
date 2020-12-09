@@ -20,6 +20,11 @@
 #include <stdio.h>
 #include <errno.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"printf"
+#endif
+
 
 /* printf */
 static int _printf_error(char const * message, int ret);
@@ -76,7 +81,7 @@ static int _printf(char const * format, int argc, char * argv[])
 
 static int _printf_error(char const * message, int ret)
 {
-	fputs("printf: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -195,7 +200,7 @@ static int _printf_format(char const ** p, char const * arg)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: printf format [argument...]\n", stderr);
+	fputs("Usage: " PROGNAME " format [argument...]\n", stderr);
 	return 1;
 }
 

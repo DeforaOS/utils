@@ -20,6 +20,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"strings"
+#endif
 
 
 /* strings */
@@ -48,7 +52,7 @@ static int _strings(int flgn, int argc, char * argv[])
 
 static int _strings_error(char const * message, int ret)
 {
-	fputs("strings: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -96,7 +100,7 @@ static void _strings_do(int flgn, FILE * fp)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: strings [-a][-t format][-n number][file...]\n"
+	fputs("Usage: " PROGNAME " [-a][-t format][-n number][file...]\n"
 "  -a	Scan files in their entirety\n"
 "  -t	Precede each string with its byte offset (\"d\", \"o\" or \"h\")\n"
 "  -n	Minimum string length\n", stderr);

@@ -20,6 +20,11 @@
 #include <stdio.h>
 #include <limits.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"pwd"
+#endif
+
 
 /* types */
 typedef enum _pwd_flag
@@ -87,7 +92,7 @@ static int _pwd(pwd_flag pf)
 
 static int _pwd_error(char const * message, int ret)
 {
-	fputs("pwd: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -96,7 +101,7 @@ static int _pwd_error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: pwd [-L|-P]\n\
+	fputs("Usage: " PROGNAME " [-L|-P]\n\
   -L	Avoid \".\" or \"..\" filenames\n\
   -P	Avoid symbolic links\n", stderr);
 	return 1;

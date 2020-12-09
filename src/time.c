@@ -22,6 +22,11 @@
 #include <stdio.h>
 #include <errno.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"time"
+#endif
+
 
 /* time */
 static int _time_error(char const * error, int ret);
@@ -57,7 +62,7 @@ static int _time(char * argv[])
 
 static int _time_error(char const * message, int ret)
 {
-	fputs("time: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -101,7 +106,7 @@ static int _time_print(long real, long user, long sys)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: time [-p] utility [argument...]\n\
+	fputs("Usage: " PROGNAME " [-p] utility [argument...]\n\
   -p	Force the POSIX locale\n", stderr);
 	return 1;
 }

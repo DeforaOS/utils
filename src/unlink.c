@@ -18,13 +18,18 @@
 #include <unistd.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"unlink"
+#endif
+
 
 /* unlink */
 static int _unlink(char const * file)
 {
 	if(unlink(file) == -1)
 	{
-		fputs("unlink: ", stderr);
+		fputs(PROGNAME ": ", stderr);
 		perror(file);
 		return 1;
 	}
@@ -35,7 +40,7 @@ static int _unlink(char const * file)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: unlink file\n", stderr);
+	fputs("Usage: " PROGNAME " file\n", stderr);
 	return 1;
 }
 

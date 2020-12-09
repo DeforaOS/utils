@@ -20,6 +20,11 @@
 #include <stdio.h>
 #include <string.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"uniq"
+#endif
+
 
 /* types */
 typedef int Prefs;
@@ -64,7 +69,7 @@ static int _uniq(Prefs prefs, char const * fields, unsigned int skip,
 
 static int _uniq_error(char const * message, int ret)
 {
-	fputs("uniq: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -160,7 +165,7 @@ static int _count_repeated(char * lastline, char * line, unsigned int skip)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: uniq [-c|-d|-u][-f fields][-s char][input_file\
+	fputs("Usage: " PROGNAME " [-c|-d|-u][-f fields][-s char][input_file\
  [output_file]]\n\
   -c	Precede each output line with a count of the repetitions for the line\n\
   -d	Suppress the writing of lines that are not repeated\n\

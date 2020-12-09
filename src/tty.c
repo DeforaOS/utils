@@ -18,6 +18,11 @@
 #include <unistd.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"tty"
+#endif
+
 
 /* tty */
 static int _tty_error(char const * message, int ret);
@@ -39,7 +44,7 @@ static int _tty(void)
 
 static int _tty_error(char const * message, int ret)
 {
-	fputs("tty: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -48,7 +53,7 @@ static int _tty_error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: tty\n", stderr);
+	fputs("Usage: " PROGNAME "\n", stderr);
 	return 1;
 }
 

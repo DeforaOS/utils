@@ -24,6 +24,11 @@
 #include <string.h>
 #include <errno.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"rm"
+#endif
+
 
 /* types */
 typedef int Prefs;
@@ -48,7 +53,7 @@ static int _rm(Prefs * prefs, int argc, char * argv[])
 
 static int _rm_error(char const * message, int ret)
 {
-	fputs("rm: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -58,7 +63,8 @@ static int _rm_confirm(char const * message, char const * type)
 	int c;
 	int tmp;
 
-	fprintf(stderr, "%s%s%s%s%s", "rm: ", message, ": Remove ", type, "? ");
+	fprintf(stderr, "%s%s%s%s%s", PROGNAME ": ", message, ": Remove ", type,
+			"? ");
 	if((c = fgetc(stdin)) == EOF)
 		return 0;
 	while(c != '\n' && (tmp = fgetc(stdin)) != EOF && tmp != '\n');
@@ -137,7 +143,7 @@ static int _rm_do_recursive(Prefs * prefs, char * filename)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: rm [-fiRr] file...\n\
+	fputs("Usage: " PROGNAME " [-fiRr] file...\n\
   -f    Do not prompt for confirmation or output error messages\n\
   -i    Prompt for confirmation\n\
   -R    Remove file hierarchies\n\

@@ -23,6 +23,11 @@
 #include <pwd.h>
 #include <grp.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"test"
+#endif
+
 
 /* test */
 static int _test_single(char c, char * argv);
@@ -243,7 +248,7 @@ static int _is_file_executable(char * pathname)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: test [expression]\n\
+	fputs("Usage: " PROGNAME " [expression]\n\
        [ [expression] ]\n", stderr);
 	return 1;
 }

@@ -23,6 +23,11 @@
 #include <limits.h>
 #include <errno.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"tail"
+#endif
+
 
 /* tail */
 /* types */
@@ -61,7 +66,7 @@ static int _tail(Prefs * prefs, char const * filename)
 
 static int _tail_error(char const * message, int ret)
 {
-	fputs("tail: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -75,7 +80,7 @@ static int _tail_do_bytes(Prefs * prefs, FILE * fp, char const * filename)
 	if(fseek(fp, c > 0 ? c - 1 : c, c > 0 ? SEEK_SET : SEEK_END) != 0)
 	{
 		/* FIXME implement */
-		fprintf(stderr, "tail: %s\n", strerror(ENOSYS));
+		fprintf(stderr, PROGNAME ": %s\n", strerror(ENOSYS));
 		return 1;
 	}
 	while((i = fread(buf, 1, sizeof(buf), fp)) > 0)
@@ -206,7 +211,7 @@ static int _tail_wait(FILE * fp, char const * filename)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: tail [-f][-c number|-n number][file]\n", stderr);
+	fputs("Usage: " PROGNAME " [-f][-c number|-n number][file]\n", stderr);
 	return 1;
 }
 

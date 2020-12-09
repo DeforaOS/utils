@@ -25,6 +25,11 @@
 #include <utime.h>
 #include <errno.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"touch"
+#endif
+
 
 /* Prefs */
 #define TOUCH_PREFS_a 1
@@ -238,7 +243,7 @@ static int _touch(Prefs * prefs, int argc, char * argv[])
 
 static int _touch_error(char const * message, int ret)
 {
-	fputs("touch: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -295,7 +300,7 @@ static int _touch_do(Prefs * prefs, char const * filename, time_t atime,
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: touch [-acm][-r ref_file|-t time] file...\n\
+	fputs("Usage: " PROGNAME " [-acm][-r ref_file|-t time] file...\n\
   -a	Change the access time\n\
   -c	Do not create file if it doesn't exist\n\
   -m	Change the modification time\n\

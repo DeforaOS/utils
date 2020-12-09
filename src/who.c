@@ -23,6 +23,11 @@
 # include <utmpx.h>
 #endif
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"who"
+#endif
+
 
 /* types */
 typedef int Prefs;
@@ -71,7 +76,7 @@ static int _who(Prefs * prefs)
 
 static int _who_error(char const * message, int ret)
 {
-	fputs("who: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -94,7 +99,7 @@ static char * _who_tty(void)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: who [-mT]\n", stderr);
+	fputs("Usage: " PROGNAME " [-mT]\n", stderr);
 	return 1;
 }
 

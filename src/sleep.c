@@ -19,6 +19,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"sleep"
+#endif
+
 
 /* sleep */
 static int _sleep(unsigned int time)
@@ -31,7 +36,7 @@ static int _sleep(unsigned int time)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: sleep time\n", stderr);
+	fputs("Usage: " PROGNAME " time\n", stderr);
 	return 1;
 }
 

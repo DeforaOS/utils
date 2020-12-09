@@ -21,6 +21,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"renice"
+#endif
+
 
 /* renice */
 static int _renice_error(char const * message, int ret);
@@ -37,7 +42,7 @@ static int _renice(int nice, int type, int argc, char * argv[])
 		id = strtol(argv[i], &p, 10);
 		if(argv[i][0] == '\0' || *p != '\0')
 		{
-			fprintf(stderr, "%s%s%s", "renice: ", argv[i],
+			fprintf(stderr, "%s%s%s", PROGNAME ": ", argv[i],
 					"Invalid ID\n");
 			ret |= 1;
 			continue;
@@ -50,7 +55,7 @@ static int _renice(int nice, int type, int argc, char * argv[])
 
 static int _renice_error(char const * message, int ret)
 {
-	fputs("renice: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -59,7 +64,7 @@ static int _renice_error(char const * message, int ret)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: renice -n increment [-g | -p | -u] ID...\n\
+	fputs("Usage: " PROGNAME " -n increment [-g | -p | -u] ID...\n\
   -n	Priority to set\n\
   -g	Process group IDs\n\
   -p	Integer process IDs\n\

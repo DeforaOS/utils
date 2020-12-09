@@ -18,6 +18,11 @@
 #include <unistd.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"rmdir"
+#endif
+
 
 /* rmdir */
 static int _rmdir_error(char const * message, int ret);
@@ -40,7 +45,7 @@ static int _rmdir(int flagp, int filec, char * filev[])
 
 static int _rmdir_error(char const * message, int ret)
 {
-	fputs("rmdir: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -68,7 +73,7 @@ static int _rmdir_p(char * pathname)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: rmdir [-p] dir...\n\
+	fputs("Usage: " PROGNAME " [-p] dir...\n\
   -p	Remove all directories in a pathname\n", stderr);
 	return 1;
 }

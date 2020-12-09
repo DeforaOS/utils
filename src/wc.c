@@ -19,6 +19,11 @@
 #include <ctype.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"wc"
+#endif
+
 
 /* macros */
 #define IS_SET(flags, bit) ((flags & bit) == bit)
@@ -62,7 +67,7 @@ static int _wc(int flags, int argc, char * argv[])
 
 static int _wc_error(char const * message, int ret)
 {
-	fputs("wc: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
@@ -120,7 +125,7 @@ static void _wc_print(int flags, unsigned int cm, unsigned int l,
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: wc [-c|-m][-lw][file...]\n\
+	fputs("Usage: " PROGNAME " [-c|-m][-lw][file...]\n\
   -c	Write the number of bytes\n\
   -m	Write the number of characters\n\
   -l	Write the number of lines\n\
