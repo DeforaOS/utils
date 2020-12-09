@@ -29,6 +29,11 @@
 #include <grp.h>
 #include <errno.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"find"
+#endif
+
 
 /* types */
 typedef int Prefs;
@@ -85,14 +90,14 @@ static int _find(Prefs * prefs, int argc, char * argv[])
 
 static int _find_error(char const * message, int ret)
 {
-	fputs("find: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(message);
 	return ret;
 }
 
 static int _find_error_user(char const * message, char const * error, int ret)
 {
-	fprintf(stderr, "%s%s: %s\n", "find: ", message, error);
+	fprintf(stderr, "%s%s: %s\n", PROGNAME ": ", message, error);
 	return ret;
 }
 
@@ -308,7 +313,7 @@ static int _do_dir(Prefs * prefs, char const * pathname, int cmdc,
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: find [-H|-L] path... [expression...]\n"
+	fputs("Usage: " PROGNAME " [-H|-L] path... [expression...]\n"
 "  -H	De-reference links unless dangling or in the command line\n"
 "  -L	De-reference links always\n", stderr);
 	return 1;

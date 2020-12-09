@@ -19,6 +19,11 @@
 #include <libgen.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"dirname"
+#endif
+
 
 /* dirname */
 static int _dirname(char * arg)
@@ -31,7 +36,7 @@ static int _dirname(char * arg)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: dirname string\n", stderr);
+	fputs("Usage: " PROGNAME " string\n", stderr);
 	return 1;
 }
 

@@ -23,6 +23,11 @@
 #include <stdio.h>
 #include <string.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"du"
+#endif
+
 
 /* Prefs */
 typedef int Prefs;
@@ -51,7 +56,7 @@ static int _du(Prefs * prefs, int argc, char * argv[])
 
 static int _du_error(char const * error)
 {
-	fputs("du: ", stderr);
+	fputs(PROGNAME ": ", stderr);
 	perror(error);
 	return 1;
 }
@@ -183,7 +188,7 @@ static void _du_print(Prefs * prefs, off_t size, char const * filename)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: du [-a | -s][-kx][-H | -L][file...]\n\
+	fputs("Usage: " PROGNAME " [-a | -s][-kx][-H | -L][file...]\n\
   -a	Report the size of every file encountered\n\
   -s	Report only the total sum for each of the specified files\n\
   -k	Write the file sizes in units of 1024 bytes rather than 512\n\

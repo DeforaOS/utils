@@ -20,6 +20,11 @@
 #include <unistd.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"file"
+#endif
+
 
 /* prefs */
 typedef int Prefs;
@@ -83,8 +88,8 @@ static int _file_do(Prefs * p, char const * filename)
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: file [-dh][-M file][-m file] file ...\n\
-       file -i [-h] file ...\n", stderr);
+	fputs("Usage: " PROGNAME " [-dh][-M file][-m file] file ...\n\
+       " PROGNAME " -i [-h] file ...\n", stderr);
 	return 1;
 }
 

@@ -18,11 +18,16 @@
 #include <unistd.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"false"
+#endif
+
 
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: false\n", stderr);
+	fputs("Usage: " PROGNAME "\n", stderr);
 	return 1;
 }
 

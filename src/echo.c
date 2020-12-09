@@ -18,6 +18,11 @@
 #include <unistd.h>
 #include <stdio.h>
 
+/* constants */
+#ifndef PROGNAME
+# define PROGNAME	"echo"
+#endif
+
 
 /* echo */
 static int _echo(int argc, char * argv[])
@@ -38,7 +43,7 @@ static int _echo(int argc, char * argv[])
 /* usage */
 static int _usage(void)
 {
-	fputs("Usage: echo [string...]\n", stderr);
+	fputs("Usage: " PROGNAME " [string...]\n", stderr);
 	return 1;
 }
 
