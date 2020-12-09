@@ -34,10 +34,11 @@
 #endif
 
 /* macros */
-#define max(a, b) ((a) > (b) ? (a) : (b))
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 
-/* Prefs */
+/* ls */
+/* types */
 typedef unsigned int Prefs;
 #define LS_PREFS_C 00001
 #define LS_PREFS_F 00002
@@ -416,7 +417,7 @@ static int _ls_do_files_short(Prefs * prefs, char const * directory,
 		for(cur = *files; cur != NULL; slist_next(&cur))
 		{
 			lencur = strlen(slist_data(&cur));
-			lenmax = max(lenmax, lencur);
+			lenmax = MAX(lenmax, lencur);
 		}
 		if(*prefs & LS_PREFS_F)
 			lenmax++;

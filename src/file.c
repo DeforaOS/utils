@@ -26,7 +26,8 @@
 #endif
 
 
-/* prefs */
+/* file */
+/* types */
 typedef unsigned int Prefs;
 #define FILE_PREFS_h	1
 #define FILE_PREFS_m	2
@@ -35,6 +36,7 @@ typedef unsigned int Prefs;
 #define FILE_PREFS_i	8
 
 
+/* functions */
 /* file */
 static int _file_do(Prefs * p, char const * filename);
 static int _file(Prefs * p, int argc, char * argv[])

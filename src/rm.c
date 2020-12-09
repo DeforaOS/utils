@@ -30,6 +30,7 @@
 #endif
 
 
+/* rm */
 /* types */
 typedef unsigned int Prefs;
 #define RM_PREFS_f 0x1
@@ -37,10 +38,16 @@ typedef unsigned int Prefs;
 #define RM_PREFS_R 0x4
 
 
-/* rm */
+/* prototypes */
+static int _rm(Prefs * prefs, int argc, char * argv[]);
+
 static int _rm_error(char const * message, int ret);
 
+
+/* functions */
+/* rm */
 static int _rm_do(Prefs * prefs, char * file);
+
 static int _rm(Prefs * prefs, int argc, char * argv[])
 {
 	int ret = 0;
@@ -48,13 +55,6 @@ static int _rm(Prefs * prefs, int argc, char * argv[])
 
 	for(i = 0; i < argc; i++)
 		ret |= _rm_do(prefs, argv[i]);
-	return ret;
-}
-
-static int _rm_error(char const * message, int ret)
-{
-	fputs(PROGNAME ": ", stderr);
-	perror(message);
 	return ret;
 }
 
@@ -136,6 +136,15 @@ static int _rm_do_recursive(Prefs * prefs, char * filename)
 		return ret;
 	if(rmdir(filename) != 0)
 		return _rm_error(filename, 1);
+	return ret;
+}
+
+
+/* rm_error */
+static int _rm_error(char const * message, int ret)
+{
+	fputs(PROGNAME ": ", stderr);
+	perror(message);
 	return ret;
 }
 

@@ -33,6 +33,7 @@
 #endif
 
 
+/* chown */
 /* types */
 typedef unsigned int Prefs;
 #define CHOWN_PREFS_h 0x1
@@ -42,6 +43,7 @@ typedef unsigned int Prefs;
 #define CHOWN_PREFS_P 0xc
 
 
+/* functions */
 /* chown */
 static int _chown_error(char * message, int ret);
 static int _chown_owner(char * owner, uid_t * uid, gid_t * gid);

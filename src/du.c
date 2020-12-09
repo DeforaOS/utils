@@ -29,7 +29,8 @@
 #endif
 
 
-/* Prefs */
+/* du */
+/* types */
 typedef unsigned int Prefs;
 #define DU_PREFS_a 0x01
 #define DU_PREFS_s 0x02 
@@ -39,6 +40,7 @@ typedef unsigned int Prefs;
 #define DU_PREFS_L 0x30
 
 
+/* functions */
 /* du */
 static int _du_do(Prefs * prefs, char const * filename);
 

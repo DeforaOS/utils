@@ -35,11 +35,11 @@
 #endif
 
 
+/* find */
 /* types */
 typedef unsigned int Prefs;
 #define FIND_PREFS_H 1
 #define FIND_PREFS_L 2
-
 
 typedef enum _FindCmd
 {
@@ -66,6 +66,9 @@ typedef enum _FindCmd
 } FindCmd;
 #define FC_LAST FC_DEPTH
 
+
+/* functions */
+/* find */
 static int _find_error(char const * message, int ret);
 static int _find_error_user(char const * message, char const * error, int ret);
 static int _find_do(Prefs * prefs, char const * pathname, int cmdc,

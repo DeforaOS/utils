@@ -26,6 +26,7 @@
 #endif
 
 
+/* uniq */
 /* types */
 typedef unsigned int Prefs;
 #define UNIQ_PREFS_c 1
@@ -33,12 +34,19 @@ typedef unsigned int Prefs;
 #define UNIQ_PREFS_u 4
 
 
+/* prototypes */
+static int _uniq(Prefs prefs, char const * fields, unsigned int skip,
+		char const * in, char const * out);
+
+static int _uniq_error(char const * message, int ret);
+
+
+/* functions */
 /* uniq */
 /* PRE	if in == NULL then out == NULL too
  * POST
  * 	0	success
  * 	else	error(s) occured */
-static int _uniq_error(char const * message, int ret);
 static int _uniq_do(Prefs prefs, char const * fields, unsigned int skip,
 		FILE * infp, FILE * outfp);
 
@@ -64,13 +72,6 @@ static int _uniq(Prefs prefs, char const * fields, unsigned int skip,
 		if(out != NULL && fclose(outfp) != 0)
 			return _uniq_error(out, 1);
 	}
-	return ret;
-}
-
-static int _uniq_error(char const * message, int ret)
-{
-	fputs(PROGNAME ": ", stderr);
-	perror(message);
 	return ret;
 }
 
@@ -159,6 +160,15 @@ static int _count_repeated(char * lastline, char * line, unsigned int skip)
 	if(strcmp(&lastline[skip], &line[skip]) == 0)
 		return 1;
 	return 0;
+}
+
+
+/* uniq_error */
+static int _uniq_error(char const * message, int ret)
+{
+	fputs(PROGNAME ": ", stderr);
+	perror(message);
+	return ret;
 }
 
 

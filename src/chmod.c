@@ -32,11 +32,13 @@
 #endif
 
 
+/* chmod */
 /* types */
 typedef unsigned int Prefs;
 #define CHMOD_PREFS_R 1
 
 
+/* functions */
 /* chmod */
 static int _chmod_error(char const * message, int ret);
 static int _chmod_do(mode_t mode, char * file);

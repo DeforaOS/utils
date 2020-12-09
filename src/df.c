@@ -29,12 +29,14 @@
 #endif
 
 
-/* Prefs */
+/* df */
+/* types */
 typedef unsigned int Prefs;
 #define DF_PREFS_k 1
 #define DF_PREFS_P 2
 
 
+/* functions */
 /* df */
 static int _df_error(char const * message, int ret);
 static int _df_mtab(Prefs * prefs);

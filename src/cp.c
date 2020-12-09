@@ -34,6 +34,7 @@
 #endif
 
 
+/* cp */
 /* types */
 typedef unsigned int Prefs;
 #define CP_PREFS_f 0x01
@@ -45,6 +46,7 @@ typedef unsigned int Prefs;
 #define CP_PREFS_P 0x40
 
 
+/* functions */
 /* cp */
 static int _cp_error(char const * message, int ret);
 static int _cp_single(Prefs * prefs, char const * src, char const * dst);

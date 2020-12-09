@@ -33,17 +33,22 @@
 #endif
 
 
+/* mv */
 /* types */
 typedef unsigned int Prefs;
 #define MV_PREFS_f 0x1
 #define MV_PREFS_i 0x2
 
 
-/* mv */
+/* prototypes */
 static int _mv_error(char const * message, int ret);
+
 static int _mv_single(Prefs * prefs, char const * src, char const * dst);
 static int _mv_multiple(Prefs * prefs, int filec, char * const filev[]);
 
+
+/* functions */
+/* mv */
 static int _mv(Prefs * prefs, int filec, char * filev[])
 {
 	struct stat st;
@@ -68,13 +73,6 @@ static int _mv(Prefs * prefs, int filec, char * filev[])
 	return _mv_single(prefs, filev[0], filev[1]);
 }
 
-static int _mv_error(char const * message, int ret)
-{
-	fputs(PROGNAME ": ", stderr);
-	perror(message);
-	return ret;
-}
-
 static int _mv_confirm(char const * message)
 {
 	int c;
@@ -87,8 +85,20 @@ static int _mv_confirm(char const * message)
 	return c == 'y';
 }
 
+
+/* mv_error */
+static int _mv_error(char const * message, int ret)
+{
+	fputs(PROGNAME ": ", stderr);
+	perror(message);
+	return ret;
+}
+
+
 /* mv_single */
 static int _mv_single_dir(Prefs * prefs, char const * src, char const * dst,
+		mode_t mode);
+static int _mv_single_recurse(Prefs * prefs, char const * src, char const * dst,
 		mode_t mode);
 static int _mv_single_fifo(char const * src, char const * dst, mode_t mode);
 static int _mv_single_nod(char const * src, char const * dst, mode_t mode,
@@ -135,10 +145,6 @@ static int _mv_single(Prefs * prefs, char const * src, char const * dst)
 	_mv_single_p(dst, &st);
 	return 0;
 }
-
-/* _mv_single_dir */
-static int _mv_single_recurse(Prefs * prefs, char const * src, char const * dst,
-		mode_t mode);
 
 static int _mv_single_dir(Prefs * prefs, char const * src, char const * dst,
 		mode_t mode)

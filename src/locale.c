@@ -25,7 +25,8 @@
 #endif
 
 
-/* prefs */
+/* locale */
+/* types */
 typedef unsigned int Prefs;
 #define LOCALE_PREFS_a 0x1
 #define LOCALE_PREFS_m 0x2
@@ -33,6 +34,13 @@ typedef unsigned int Prefs;
 #define LOCALE_PREFS_k 0x8
 
 
+/* prototypes */
+static int _locale(Prefs * p, int argc, char * argv[]);
+
+static int _usage(void);
+
+
+/* functions */
 /* locale */
 static int _locale_locales(void);
 static int _locale_charsets(void);
