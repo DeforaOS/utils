@@ -30,9 +30,9 @@
 
 
 /* types */
-typedef int Prefs;
-#define PREFS_m 0x1
-#define PREFS_T 0x2
+typedef unsigned int Prefs;
+#define WHO_PREFS_m 0x1
+#define WHO_PREFS_T 0x2
 
 
 /* who */
@@ -48,7 +48,7 @@ static int _who(Prefs * prefs)
 	time_t t;
 
 	memset(&tm, 0, sizeof(tm));
-	if(*prefs & PREFS_m && (tty = _who_tty()) == NULL)
+	if(*prefs & WHO_PREFS_m && (tty = _who_tty()) == NULL)
 		return 1;
 #ifdef USER_PROCESS
 	for(; (u = getutxent()) != NULL;)
@@ -58,7 +58,7 @@ static int _who(Prefs * prefs)
 		if(tty != NULL && strcmp(tty, u->ut_line) != 0)
 			continue;
 		printf("%-8s", u->ut_user);
-		if(*prefs & PREFS_T)
+		if(*prefs & WHO_PREFS_T)
 			printf(" %c", '?');
 		printf(" %-8s", u->ut_line);
 		t = u->ut_tv.tv_sec;
@@ -115,10 +115,10 @@ int main(int argc, char * argv[])
 		switch(o)
 		{
 			case 'm':
-				prefs |= PREFS_m;
+				prefs |= WHO_PREFS_m;
 				break;
 			case 'T':
-				prefs |= PREFS_T;
+				prefs |= WHO_PREFS_T;
 				break;
 			default:
 				return _usage();
