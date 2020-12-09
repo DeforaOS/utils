@@ -34,7 +34,9 @@
 #endif
 
 /* macros */
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#ifndef MAX
+# define MAX(a, b) ((a) > (b) ? (a) : (b))
+#endif
 
 
 /* ls */
