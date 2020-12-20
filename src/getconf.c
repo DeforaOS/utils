@@ -55,26 +55,68 @@ static const getconf_catalog _getconf_catalog_limits[] =
 
 static const getconf_catalog _getconf_catalog_pathconf[] =
 {
+#ifdef _PC_2_SYMLINKS
+	{ _PC_2_SYMLINKS,	"POSIX2_SYMLINKS"			},
+#endif
+#ifdef _PC_ALLOC_SIZE_MIN
+	{ _PC_ALLOC_SIZE_MIN,	"POSIX_ALLOC_SIZE_MIN"			},
+#endif
+#ifdef _PC_ASYNC_IO
+	{ _PC_ASYNC_IO,		"_POSIX_ASYNC_IO"			},
+#endif
+#ifdef _PC_CHOWN_RESTRICTED
+	{ _PC_CHOWN_RESTRICTED,	"POSIX_CHOWN_RESTRICTED"		},
+#endif
 #ifdef _PC_FILESIZEBITS
-	{ _PC_FILESIZEBITS,	"FILESIZEBITS"	},
+	{ _PC_FILESIZEBITS,	"FILESIZEBITS"				},
 #endif
 #ifdef _PC_LINK_MAX
-	{ _PC_LINK_MAX,		"LINK_MAX"	},
+	{ _PC_LINK_MAX,		"LINK_MAX"				},
 #endif
 #ifdef _PC_MAX_CANON
-	{ _PC_MAX_CANON,	"MAX_CANON"	},
+	{ _PC_MAX_CANON,	"MAX_CANON"				},
 #endif
 #ifdef _PC_MAX_INPUT
-	{ _PC_MAX_INPUT,	"MAX_INPUT"	},
+	{ _PC_MAX_INPUT,	"MAX_INPUT"				},
 #endif
 #ifdef _PC_NAME_MAX
-	{ _PC_NAME_MAX,		"NAME_MAX"	},
+	{ _PC_NAME_MAX,		"NAME_MAX"				},
+#endif
+#ifdef _PC_NO_TRUNC
+	{ _PC_NO_TRUNC,		"POSIX_NO_TRUNC"			},
 #endif
 #ifdef _PC_PATH_MAX
-	{ _PC_PATH_MAX,		"PATH_MAX"	},
+	{ _PC_PATH_MAX,		"PATH_MAX"				},
 #endif
 #ifdef _PC_PIPE_BUF
-	{ _PC_PIPE_BUF,		"PIPE_BUF"	},
+	{ _PC_PIPE_BUF,		"PIPE_BUF"				},
+#endif
+#ifdef _PC_PRIO_IO
+	{ _PC_PRIO_IO,		"_POSIX_PRIO_IO"			},
+#endif
+#ifdef _PC_REC_INCR_XFER_SIZE
+	{ _PC_REC_INCR_XFER_SIZE,"POSIX_REC_INCR_XFER_SIZE"		},
+#endif
+#ifdef _PC_REC_MAX_XFER_SIZE
+	{ _PC_REC_MAX_XFER_SIZE,"POSIX_REC_MAX_XFER_SIZE"		},
+#endif
+#ifdef _PC_REC_MIN_XFER_SIZE
+	{ _PC_REC_MIN_XFER_SIZE,"POSIX_REC_MIN_XFER_SIZE"		},
+#endif
+#ifdef _PC_REC_XFER_ALIGN
+	{ _PC_REC_XFER_ALIGN,	"POSIX_REC_XFER_ALIGN"			},
+#endif
+#ifdef _PC_SYMLINK_MAX
+	{ _PC_SYMLINK_MAX,	"SYMLINK_MAX"				},
+#endif
+#ifdef _PC_SYNC_IO
+	{ _PC_SYNC_IO,		"_POSIX_SYNC_IO"			},
+#endif
+#ifdef _PC_TIMESTAMP_RESOLUTION
+	{ _PC_TIMESTAMP_RESOLUTION,"_POSIX_TIMESTAMP_RESOLUTION"	},
+#endif
+#ifdef _PC_VDISABLE
+	{ _PC_VDISABLE,		"_POSIX_VDISABLE"			},
 #endif
 };
 
