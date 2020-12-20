@@ -290,6 +290,23 @@
 #undef _find
 #undef PROGNAME
 
+/* getconf.c */
+#define PROGNAME "getconf"
+#define main _getconf_main
+#define _usage _getconf_usage
+#define _Prefs _getconf_Prefs
+#define Prefs getconf_Prefs
+#define _prefs_parse _getconf_prefs_parse
+#define _getconf __getconf
+#include "../src/getconf.c"
+#undef main
+#undef _usage
+#undef _Prefs
+#undef Prefs
+#undef _prefs_parse
+#undef _getconf
+#undef PROGNAME
+
 /* grep.c */
 #define PROGNAME "grep"
 #define main _grep_main
@@ -888,6 +905,7 @@ Call calls[] =
 	{ "false",	_false_main	},
 	{ "file",	_file_main	},
 	{ "find",	_find_main	},
+	{ "getconf",	_getconf_main	},
 	{ "grep",	_grep_main	},
 	{ "head",	_head_main	},
 	{ "id",	_id_main	},
