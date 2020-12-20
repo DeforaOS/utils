@@ -48,8 +48,65 @@ static const getconf_catalog _getconf_catalog_confstr[] =
 
 static const getconf_catalog _getconf_catalog_limits[] =
 {
+#ifdef _SC_AIO_LISTIO_MAX
+	{ _SC_AIO_LISTIO_MAX,	"AIO_LISTIO_MAX"},
+#endif
+#ifdef _SC_AIO_MAX
+	{ _SC_AIO_MAX,		"AIO_MAX"	},
+#endif
+#ifdef _SC_ARG_MAX
+	{ _SC_ARG_MAX,		"ARG_MAX"	},
+#endif
+#ifdef _SC_ATEXIT_MAX
+	{ _SC_ATEXIT_MAX,	"ATEXIT_MAX"	},
+#endif
+#ifdef _SC_CHILD_MAX
+	{ _SC_CHILD_MAX,	"CHILD_MAX"	},
+#endif
+#ifdef _SC_DELAYTIMER_MAX
+	{ _SC_DELAYTIMER_MAX,	"DELAYTIMER_MAX"},
+#endif
+#ifdef _SC_EXPR_NEST_MAX
+	{ _SC_EXPR_NEST_MAX,	"EXPR_NEST_MAX"	},
+#endif
+#ifdef _SC_HOST_NAME_MAX
+	{ _SC_HOST_NAME_MAX,	"HOST_NAME_MAX"	},
+#endif
+#ifdef _SC_IOV_MAX
+	{ _SC_IOV_MAX,		"IOV_MAX"	},
+#endif
+#ifdef _SC_LINE_MAX
+	{ _SC_LINE_MAX,		"LINE_MAX"	},
+#endif
+#ifdef _SC_LOGIN_NAME_MAX
+	{ _SC_LOGIN_NAME_MAX,	"LOGIN_NAME_MAX"},
+#endif
 #ifdef _SC_NGROUPS_MAX
 	{ _SC_NGROUPS_MAX,	"NGROUPS_MAX"	},
+#endif
+#ifdef _SC_OPEN_MAX
+	{ _SC_OPEN_MAX,		"OPEN_MAX"	},
+#endif
+#ifdef _SC_PAGE_SIZE
+	{ _SC_PAGE_SIZE,	"PAGE_SIZE"	},
+#endif
+#ifdef _SC_PAGESIZE
+	{ _SC_PAGESIZE,		"PAGESIZE"	},
+#endif
+#ifdef _SC_STREAM_MAX
+	{ _SC_STREAM_MAX,	"STREAM_MAX"	},
+#endif
+#ifdef _SC_SYMLOOP_MAX
+	{ _SC_SYMLOOP_MAX,	"SYMLOOP_MAX"	},
+#endif
+#ifdef _SC_TIMER_MAX
+	{ _SC_TIMER_MAX,	"TIMER_MAX"	},
+#endif
+#ifdef _SC_TTYNAME_MAX
+	{ _SC_TTYNAME_MAX,	"TTYNAME_MAX"	},
+#endif
+#ifdef _SC_TZNAME_MAX
+	{ _SC_TZNAME_MAX,	"TZNAME_MAX"	},
 #endif
 };
 
