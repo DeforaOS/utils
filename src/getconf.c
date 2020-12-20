@@ -48,8 +48,8 @@ static const getconf_catalog _getconf_catalog_confstr[] =
 
 static const getconf_catalog _getconf_catalog_limits[] =
 {
-#ifdef NGROUPS_MAX
-	{ NGROUPS_MAX,	"NGROUPS_MAX"	},
+#ifdef _SC_NGROUPS_MAX
+	{ _SC_NGROUPS_MAX,	"NGROUPS_MAX"	},
 #endif
 };
 
@@ -176,13 +176,16 @@ static int _getconf_limits(char const * var)
 	size_t i;
 	size_t cnt = sizeof(_getconf_catalog_limits)
 		/ sizeof(*_getconf_catalog_limits);
+	long value;
 
 	for(i = 0; i < cnt; i++)
 		if(strcmp(_getconf_catalog_limits[i].string, var) == 0)
 			break;
 	if(i == cnt)
 		return _getconf_error(var, -ENOENT);
-	printf("%d\n", _getconf_catalog_limits[i].name);
+	if((value = sysconf(_getconf_catalog_limits[i].name)) < 0)
+		return _getconf_error(var, 2);
+	printf("%ld\n", value);
 	return 0;
 }
 
