@@ -42,183 +42,183 @@ typedef struct _getconf_catalog
 static const getconf_catalog _getconf_catalog_confstr[] =
 {
 #ifdef _CS_PATH
-	{ _CS_PATH,	"_CS_PATH"	},
+	{ _CS_PATH,			"_CS_PATH"			},
 #endif
 };
 
 static const getconf_catalog _getconf_catalog_pathconf[] =
 {
 #ifdef _PC_2_SYMLINKS
-	{ _PC_2_SYMLINKS,	"POSIX2_SYMLINKS"			},
+	{ _PC_2_SYMLINKS,		"POSIX2_SYMLINKS"		},
 #endif
 #ifdef _PC_ALLOC_SIZE_MIN
-	{ _PC_ALLOC_SIZE_MIN,	"POSIX_ALLOC_SIZE_MIN"			},
+	{ _PC_ALLOC_SIZE_MIN,		"POSIX_ALLOC_SIZE_MIN"		},
 #endif
 #ifdef _PC_ASYNC_IO
-	{ _PC_ASYNC_IO,		"_POSIX_ASYNC_IO"			},
+	{ _PC_ASYNC_IO,			"_POSIX_ASYNC_IO"		},
 #endif
 #ifdef _PC_CHOWN_RESTRICTED
-	{ _PC_CHOWN_RESTRICTED,	"POSIX_CHOWN_RESTRICTED"		},
+	{ _PC_CHOWN_RESTRICTED,		"POSIX_CHOWN_RESTRICTED"	},
 #endif
 #ifdef _PC_FILESIZEBITS
-	{ _PC_FILESIZEBITS,	"FILESIZEBITS"				},
+	{ _PC_FILESIZEBITS,		"FILESIZEBITS"			},
 #endif
 #ifdef _PC_LINK_MAX
-	{ _PC_LINK_MAX,		"LINK_MAX"				},
+	{ _PC_LINK_MAX,			"LINK_MAX"			},
 #endif
 #ifdef _PC_MAX_CANON
-	{ _PC_MAX_CANON,	"MAX_CANON"				},
+	{ _PC_MAX_CANON,		"MAX_CANON"			},
 #endif
 #ifdef _PC_MAX_INPUT
-	{ _PC_MAX_INPUT,	"MAX_INPUT"				},
+	{ _PC_MAX_INPUT,		"MAX_INPUT"			},
 #endif
 #ifdef _PC_NAME_MAX
-	{ _PC_NAME_MAX,		"NAME_MAX"				},
+	{ _PC_NAME_MAX,			"NAME_MAX"			},
 #endif
 #ifdef _PC_NO_TRUNC
-	{ _PC_NO_TRUNC,		"POSIX_NO_TRUNC"			},
+	{ _PC_NO_TRUNC,			"POSIX_NO_TRUNC"		},
 #endif
 #ifdef _PC_PATH_MAX
-	{ _PC_PATH_MAX,		"PATH_MAX"				},
+	{ _PC_PATH_MAX,			"PATH_MAX"			},
 #endif
 #ifdef _PC_PIPE_BUF
-	{ _PC_PIPE_BUF,		"PIPE_BUF"				},
+	{ _PC_PIPE_BUF,			"PIPE_BUF"			},
 #endif
 #ifdef _PC_PRIO_IO
-	{ _PC_PRIO_IO,		"_POSIX_PRIO_IO"			},
+	{ _PC_PRIO_IO,			"_POSIX_PRIO_IO"		},
 #endif
 #ifdef _PC_REC_INCR_XFER_SIZE
-	{ _PC_REC_INCR_XFER_SIZE,"POSIX_REC_INCR_XFER_SIZE"		},
+	{ _PC_REC_INCR_XFER_SIZE,	"POSIX_REC_INCR_XFER_SIZE"	},
 #endif
 #ifdef _PC_REC_MAX_XFER_SIZE
-	{ _PC_REC_MAX_XFER_SIZE,"POSIX_REC_MAX_XFER_SIZE"		},
+	{ _PC_REC_MAX_XFER_SIZE,	"POSIX_REC_MAX_XFER_SIZE"	},
 #endif
 #ifdef _PC_REC_MIN_XFER_SIZE
-	{ _PC_REC_MIN_XFER_SIZE,"POSIX_REC_MIN_XFER_SIZE"		},
+	{ _PC_REC_MIN_XFER_SIZE,	"POSIX_REC_MIN_XFER_SIZE"	},
 #endif
 #ifdef _PC_REC_XFER_ALIGN
-	{ _PC_REC_XFER_ALIGN,	"POSIX_REC_XFER_ALIGN"			},
+	{ _PC_REC_XFER_ALIGN,		"POSIX_REC_XFER_ALIGN"		},
 #endif
 #ifdef _PC_SYMLINK_MAX
-	{ _PC_SYMLINK_MAX,	"SYMLINK_MAX"				},
+	{ _PC_SYMLINK_MAX,		"SYMLINK_MAX"			},
 #endif
 #ifdef _PC_SYNC_IO
-	{ _PC_SYNC_IO,		"_POSIX_SYNC_IO"			},
+	{ _PC_SYNC_IO,			"_POSIX_SYNC_IO"		},
 #endif
 #ifdef _PC_TIMESTAMP_RESOLUTION
-	{ _PC_TIMESTAMP_RESOLUTION,"_POSIX_TIMESTAMP_RESOLUTION"	},
+	{ _PC_TIMESTAMP_RESOLUTION,	"_POSIX_TIMESTAMP_RESOLUTION"	},
 #endif
 #ifdef _PC_VDISABLE
-	{ _PC_VDISABLE,		"_POSIX_VDISABLE"			},
+	{ _PC_VDISABLE,			"_POSIX_VDISABLE"		},
 #endif
 };
 
 static const getconf_catalog _getconf_catalog_sysconf[] =
 {
 #ifdef _SC_2_C_BIND
-	{ _SC_2_C_BIND,		"_POSIX2_C_BIND"	},
+	{ _SC_2_C_BIND,			"_POSIX2_C_BIND"		},
 #endif
 #ifdef _SC_2_C_DEV
-	{ _SC_2_C_DEV,		"_POSIX2_C_DEV"		},
+	{ _SC_2_C_DEV,			"_POSIX2_C_DEV"			},
 #endif
 #ifdef _SC_2_CHAR_TERM
-	{ _SC_2_CHAR_TERM,	"_POSIX2_CHAR_TERM"	},
+	{ _SC_2_CHAR_TERM,		"_POSIX2_CHAR_TERM"		},
 #endif
 #ifdef _SC_2_FORT_DEV
-	{ _SC_2_FORT_DEV,	"_POSIX2_FORT_DEV"	},
+	{ _SC_2_FORT_DEV,		"_POSIX2_FORT_DEV"		},
 #endif
 #ifdef _SC_2_FORT_RUN
-	{ _SC_2_FORT_RUN,	"_POSIX2_FORT_RUN"	},
+	{ _SC_2_FORT_RUN,		"_POSIX2_FORT_RUN"		},
 #endif
 #ifdef _SC_2_LOCALEDEF
-	{ _SC_2_LOCALEDEF,	"_POSIX2_LOCALEDEF"	},
+	{ _SC_2_LOCALEDEF,		"_POSIX2_LOCALEDEF"		},
 #endif
 #ifdef _SC_2_PBS
-	{ _SC_2_PBS,		"_POSIX2_PBS"		},
+	{ _SC_2_PBS,			"_POSIX2_PBS"			},
 #endif
 #ifdef _SC_2_PBS_ACCOUNTING
-	{ _SC_2_PBS_ACCOUNTING,	"_POSIX2_PBS_ACCOUNTING"},
+	{ _SC_2_PBS_ACCOUNTING,		"_POSIX2_PBS_ACCOUNTING"	},
 #endif
 #ifdef _SC_2_PBS_CHECKPOINT
-	{ _SC_2_PBS_CHECKPOINT,	"_POSIX2_PBS_CHECKPOINT"},
+	{ _SC_2_PBS_CHECKPOINT,		"_POSIX2_PBS_CHECKPOINT"	},
 #endif
 #ifdef _SC_2_PBS_LOCATE
-	{ _SC_2_PBS_LOCATE,	"_POSIX2_PBS_LOCATE"	},
+	{ _SC_2_PBS_LOCATE,		"_POSIX2_PBS_LOCATE"		},
 #endif
 #ifdef _SC_2_PBS_MESSAGE
-	{ _SC_2_PBS_MESSAGE,	"_POSIX2_PBS_MESSAGE"	},
+	{ _SC_2_PBS_MESSAGE,		"_POSIX2_PBS_MESSAGE"		},
 #endif
 #ifdef _SC_2_PBS_TRACK
-	{ _SC_2_PBS_TRACK,	"_POSIX2_PBS_TRACK"	},
+	{ _SC_2_PBS_TRACK,		"_POSIX2_PBS_TRACK"		},
 #endif
 #ifdef _SC_2_SW_DEV
-	{ _SC_2_SW_DEV,		"_POSIX2_SW_DEV"	},
+	{ _SC_2_SW_DEV,			"_POSIX2_SW_DEV"		},
 #endif
 #ifdef _SC_2_UPE
-	{ _SC_2_UPE,		"_POSIX2_UPE"		},
+	{ _SC_2_UPE,			"_POSIX2_UPE"			},
 #endif
 #ifdef _SC_2_VERSION
-	{ _SC_2_VERSION,	"_POSIX2_VERSION"	},
+	{ _SC_2_VERSION,		"_POSIX2_VERSION"		},
 #endif
 #ifdef _SC_AIO_LISTIO_MAX
-	{ _SC_AIO_LISTIO_MAX,	"AIO_LISTIO_MAX"	},
+	{ _SC_AIO_LISTIO_MAX,		"AIO_LISTIO_MAX"		},
 #endif
 #ifdef _SC_AIO_MAX
-	{ _SC_AIO_MAX,		"AIO_MAX"		},
+	{ _SC_AIO_MAX,			"AIO_MAX"			},
 #endif
 #ifdef _SC_ARG_MAX
-	{ _SC_ARG_MAX,		"ARG_MAX"		},
+	{ _SC_ARG_MAX,			"ARG_MAX"			},
 #endif
 #ifdef _SC_ATEXIT_MAX
-	{ _SC_ATEXIT_MAX,	"ATEXIT_MAX"		},
+	{ _SC_ATEXIT_MAX,		"ATEXIT_MAX"			},
 #endif
 #ifdef _SC_CHILD_MAX
-	{ _SC_CHILD_MAX,	"CHILD_MAX"		},
+	{ _SC_CHILD_MAX,		"CHILD_MAX"			},
 #endif
 #ifdef _SC_DELAYTIMER_MAX
-	{ _SC_DELAYTIMER_MAX,	"DELAYTIMER_MAX"	},
+	{ _SC_DELAYTIMER_MAX,		"DELAYTIMER_MAX"		},
 #endif
 #ifdef _SC_EXPR_NEST_MAX
-	{ _SC_EXPR_NEST_MAX,	"EXPR_NEST_MAX"		},
+	{ _SC_EXPR_NEST_MAX,		"EXPR_NEST_MAX"			},
 #endif
 #ifdef _SC_HOST_NAME_MAX
-	{ _SC_HOST_NAME_MAX,	"HOST_NAME_MAX"		},
+	{ _SC_HOST_NAME_MAX,		"HOST_NAME_MAX"			},
 #endif
 #ifdef _SC_IOV_MAX
-	{ _SC_IOV_MAX,		"IOV_MAX"		},
+	{ _SC_IOV_MAX,			"IOV_MAX"			},
 #endif
 #ifdef _SC_LINE_MAX
-	{ _SC_LINE_MAX,		"LINE_MAX"		},
+	{ _SC_LINE_MAX,			"LINE_MAX"			},
 #endif
 #ifdef _SC_LOGIN_NAME_MAX
-	{ _SC_LOGIN_NAME_MAX,	"LOGIN_NAME_MAX"	},
+	{ _SC_LOGIN_NAME_MAX,		"LOGIN_NAME_MAX"		},
 #endif
 #ifdef _SC_NGROUPS_MAX
-	{ _SC_NGROUPS_MAX,	"NGROUPS_MAX"		},
+	{ _SC_NGROUPS_MAX,		"NGROUPS_MAX"			},
 #endif
 #ifdef _SC_OPEN_MAX
-	{ _SC_OPEN_MAX,		"OPEN_MAX"		},
+	{ _SC_OPEN_MAX,			"OPEN_MAX"			},
 #endif
 #ifdef _SC_PAGE_SIZE
-	{ _SC_PAGE_SIZE,	"PAGE_SIZE"		},
+	{ _SC_PAGE_SIZE,		"PAGE_SIZE"			},
 #endif
 #ifdef _SC_PAGESIZE
-	{ _SC_PAGESIZE,		"PAGESIZE"		},
+	{ _SC_PAGESIZE,			"PAGESIZE"			},
 #endif
 #ifdef _SC_STREAM_MAX
-	{ _SC_STREAM_MAX,	"STREAM_MAX"		},
+	{ _SC_STREAM_MAX,		"STREAM_MAX"			},
 #endif
 #ifdef _SC_SYMLOOP_MAX
-	{ _SC_SYMLOOP_MAX,	"SYMLOOP_MAX"		},
+	{ _SC_SYMLOOP_MAX,		"SYMLOOP_MAX"			},
 #endif
 #ifdef _SC_TIMER_MAX
-	{ _SC_TIMER_MAX,	"TIMER_MAX"		},
+	{ _SC_TIMER_MAX,		"TIMER_MAX"			},
 #endif
 #ifdef _SC_TTYNAME_MAX
-	{ _SC_TTYNAME_MAX,	"TTYNAME_MAX"		},
+	{ _SC_TTYNAME_MAX,		"TTYNAME_MAX"			},
 #endif
 #ifdef _SC_TZNAME_MAX
-	{ _SC_TZNAME_MAX,	"TZNAME_MAX"		},
+	{ _SC_TZNAME_MAX,		"TZNAME_MAX"			},
 #endif
 };
 
