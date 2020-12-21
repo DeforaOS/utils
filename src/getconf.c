@@ -220,6 +220,33 @@ static const getconf_catalog _getconf_catalog_sysconf[] =
 #ifdef _SC_TZNAME_MAX
 	{ _SC_TZNAME_MAX,		"TZNAME_MAX"			},
 #endif
+#ifdef _SC_XOPEN_CRYPT
+	{ _SC_XOPEN_CRYPT,		"_XOPEN_CRYPT"			},
+#endif
+#ifdef _SC_XOPEN_ENH_I18N
+	{ _SC_XOPEN_ENH_I18N,		"_XOPEN_ENH_I18N"		},
+#endif
+#ifdef _SC_XOPEN_REALTIME
+	{ _SC_XOPEN_REALTIME,		"_XOPEN_REALTIME"		},
+#endif
+#ifdef _SC_XOPEN_REALTIME_THREADS
+	{ _SC_XOPEN_REALTIME_THREADS,	"_XOPEN_REALTIME_THREADS"	},
+#endif
+#ifdef _SC_XOPEN_SHM
+	{ _SC_XOPEN_SHM,		"_XOPEN_SHM"			},
+#endif
+#ifdef _SC_XOPEN_STREAMS
+	{ _SC_XOPEN_STREAMS,		"_XOPEN_STREAMS"		},
+#endif
+#ifdef _SC_XOPEN_UNIX
+	{ _SC_XOPEN_UNIX,		"_XOPEN_UNIX"			},
+#endif
+#ifdef _SC_XOPEN_UUCP
+	{ _SC_XOPEN_UUCP,		"_XOPEN_UUCP"			},
+#endif
+#ifdef _SC_XOPEN_VERSION
+	{ _SC_XOPEN_VERSION,		"_XOPEN_VERSION"		},
+#endif
 };
 
 static const getconf_catalog _getconf_catalog_values[] =
