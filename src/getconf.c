@@ -296,9 +296,15 @@ static int _getconf_limits(char const * var)
 			break;
 	if(i == cnt)
 		return _getconf_values(var);
+	errno = 0;
 	if((value = sysconf(_getconf_catalog_limits[i].name)) < 0)
-		return _getconf_error(var, 2);
-	printf("%ld\n", value);
+	{
+		if(errno != 0)
+			return _getconf_error(var, 2);
+		printf("%s", "undefined\n");
+	}
+	else
+		printf("%ld\n", value);
 	return 0;
 }
 
