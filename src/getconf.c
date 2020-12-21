@@ -33,7 +33,7 @@
 /* types */
 typedef struct _getconf_catalog
 {
-	int name;
+	long name;
 	char const * string;
 } getconf_catalog;
 
@@ -177,6 +177,61 @@ static const getconf_catalog _getconf_catalog_pathconf[] =
 #endif
 };
 
+static const getconf_catalog _getconf_catalog_values[] =
+{
+#ifdef _POSIX2_BC_BASE_MAX
+	{ _POSIX2_BC_BASE_MAX,		"POSIX2_BC_BASE_MAX"		},
+#endif
+#ifdef _POSIX2_BC_DIM_MAX
+	{ _POSIX2_BC_DIM_MAX,		"POSIX2_BC_DIM_MAX"		},
+#endif
+#ifdef _POSIX2_BC_SCALE_MAX
+	{ _POSIX2_BC_SCALE_MAX,		"POSIX2_BC_SCALE_MAX"		},
+#endif
+#ifdef _POSIX2_BC_STRING_MAX
+	{ _POSIX2_BC_STRING_MAX,	"POSIX2_BC_STRING_MAX"		},
+#endif
+#ifdef _POSIX2_COLL_WEIGHTS_MAX
+	{ _POSIX2_COLL_WEIGHTS_MAX,	"POSIX2_COLL_WEIGHTS_MAX"	},
+#endif
+#ifdef _POSIX2_EXPR_NEST_MAX
+	{ _POSIX2_EXPR_NEST_MAX,	"POSIX2_EXPR_NEST_MAX"		},
+#endif
+#ifdef _POSIX2_LINE_MAX
+	{ _POSIX2_LINE_MAX,		"POSIX2_LINE_MAX"		},
+#endif
+#ifdef _POSIX2_RE_DUP_MAX
+	{ _POSIX2_RE_DUP_MAX,		"POSIX2_RE_DUP_MAX"		},
+#endif
+#ifdef _POSIX2_C_BIND
+	{ _POSIX2_C_BIND,		"POSIX2_C_BIND"			},
+#endif
+#ifdef _POSIX2_C_DEV
+	{ _POSIX2_C_DEV,		"POSIX2_C_DEV"			},
+#endif
+#ifdef _POSIX2_CHAR_TERM
+	{ _POSIX2_CHAR_TERM,		"POSIX2_CHAR_TERM"		},
+#endif
+#ifdef _POSIX2_FORT_DEV
+	{ _POSIX2_FORT_DEV,		"POSIX2_FORT_DEV"		},
+#endif
+#ifdef _POSIX2_FORT_RUN
+	{ _POSIX2_FORT_RUN,		"POSIX2_FORT_RUN"		},
+#endif
+#ifdef _POSIX2_LOCALEDEF
+	{ _POSIX2_LOCALEDEF,		"POSIX2_LOCALEDEF"		},
+#endif
+#ifdef _POSIX2_SW_DEV
+	{ _POSIX2_SW_DEV,		"POSIX2_SW_DEV"			},
+#endif
+#ifdef _POSIX2_UPE
+	{ _POSIX2_UPE,			"POSIX2_UPE"			},
+#endif
+#ifdef _POSIX2_VERSION
+	{ _POSIX2_VERSION,		"POSIX2_VERSION"		},
+#endif
+};
+
 
 /* prototypes */
 static int _getconf(char const * specification, char const * var,
@@ -190,6 +245,7 @@ static int _usage(void);
 static int _getconf_confstr(char const * var);
 static int _getconf_limits(char const * var);
 static int _getconf_pathconf(char const * var, char const * path);
+static int _getconf_values(char const * var);
 
 static int _getconf(char const * specification, char const * var,
 		char const * path)
@@ -239,7 +295,7 @@ static int _getconf_limits(char const * var)
 		if(strcmp(_getconf_catalog_limits[i].string, var) == 0)
 			break;
 	if(i == cnt)
-		return _getconf_error(var, -ENOENT);
+		return _getconf_values(var);
 	if((value = sysconf(_getconf_catalog_limits[i].name)) < 0)
 		return _getconf_error(var, 2);
 	printf("%ld\n", value);
@@ -261,6 +317,21 @@ static int _getconf_pathconf(char const * var, char const * path)
 	if((value = pathconf(path, _getconf_catalog_pathconf[i].name)) < 0)
 		return _getconf_error(var, 2);
 	printf("%ld\n", value);
+	return 0;
+}
+
+static int _getconf_values(char const * var)
+{
+	size_t i;
+	size_t cnt = sizeof(_getconf_catalog_values)
+		/ sizeof(*_getconf_catalog_values);
+
+	for(i = 0; i < cnt; i++)
+		if(strcmp(_getconf_catalog_values[i].string, var) == 0)
+			break;
+	if(i == cnt)
+		return _getconf_error(var, -ENOENT);
+	printf("%ld\n", _getconf_catalog_values[i].name);
 	return 0;
 }
 
