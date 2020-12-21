@@ -191,18 +191,6 @@ static const getconf_catalog _getconf_catalog_values[] =
 #ifdef _POSIX2_BC_STRING_MAX
 	{ _POSIX2_BC_STRING_MAX,	"POSIX2_BC_STRING_MAX"		},
 #endif
-#ifdef _POSIX2_COLL_WEIGHTS_MAX
-	{ _POSIX2_COLL_WEIGHTS_MAX,	"POSIX2_COLL_WEIGHTS_MAX"	},
-#endif
-#ifdef _POSIX2_EXPR_NEST_MAX
-	{ _POSIX2_EXPR_NEST_MAX,	"POSIX2_EXPR_NEST_MAX"		},
-#endif
-#ifdef _POSIX2_LINE_MAX
-	{ _POSIX2_LINE_MAX,		"POSIX2_LINE_MAX"		},
-#endif
-#ifdef _POSIX2_RE_DUP_MAX
-	{ _POSIX2_RE_DUP_MAX,		"POSIX2_RE_DUP_MAX"		},
-#endif
 #ifdef _POSIX2_C_BIND
 	{ _POSIX2_C_BIND,		"POSIX2_C_BIND"			},
 #endif
@@ -212,14 +200,26 @@ static const getconf_catalog _getconf_catalog_values[] =
 #ifdef _POSIX2_CHAR_TERM
 	{ _POSIX2_CHAR_TERM,		"POSIX2_CHAR_TERM"		},
 #endif
+#ifdef _POSIX2_COLL_WEIGHTS_MAX
+	{ _POSIX2_COLL_WEIGHTS_MAX,	"POSIX2_COLL_WEIGHTS_MAX"	},
+#endif
+#ifdef _POSIX2_EXPR_NEST_MAX
+	{ _POSIX2_EXPR_NEST_MAX,	"POSIX2_EXPR_NEST_MAX"		},
+#endif
 #ifdef _POSIX2_FORT_DEV
 	{ _POSIX2_FORT_DEV,		"POSIX2_FORT_DEV"		},
 #endif
 #ifdef _POSIX2_FORT_RUN
 	{ _POSIX2_FORT_RUN,		"POSIX2_FORT_RUN"		},
 #endif
+#ifdef _POSIX2_LINE_MAX
+	{ _POSIX2_LINE_MAX,		"POSIX2_LINE_MAX"		},
+#endif
 #ifdef _POSIX2_LOCALEDEF
 	{ _POSIX2_LOCALEDEF,		"POSIX2_LOCALEDEF"		},
+#endif
+#ifdef _POSIX2_RE_DUP_MAX
+	{ _POSIX2_RE_DUP_MAX,		"POSIX2_RE_DUP_MAX"		},
 #endif
 #ifdef _POSIX2_SW_DEV
 	{ _POSIX2_SW_DEV,		"POSIX2_SW_DEV"			},
