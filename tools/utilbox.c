@@ -100,5 +100,6 @@ int main(int argc, char * argv[])
 	for(i = 0; calls[i].name != NULL; i++)
 		if(strcmp(calls[i].name, argv[optind]) == 0)
 			return calls[i].call(argc - optind, &argv[optind]);
-	return 0;
+	fprintf(stderr, "%s: %s: command not found\n", PROGNAME, argv[optind]);
+	return 127;
 }
