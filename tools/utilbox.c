@@ -31,14 +31,27 @@
 /* utilbox */
 /* private */
 /* prototypes */
-static int _error(char const * message, int ret);
-static int _list(Call * calls);
-static int _usage(void);
+static int _utilbox(char const * name, int argc, char * argv[]);
+static int _utilbox_error(char const * message, int ret);
+static int _utilbox_list(Call * calls);
+static int _utilbox_usage(void);
 
 
 /* functions */
-/* error */
-static int _error(char const * message, int ret)
+/* utilbox */
+static int _utilbox(char const * name, int argc, char * argv[])
+{
+	size_t i;
+
+	for(i = 0; calls[i].name != NULL; i++)
+		if(strcmp(calls[i].name, name) == 0)
+			return calls[i].call(argc, argv);
+	return -1;
+}
+
+
+/* utilbox_error */
+static int _utilbox_error(char const * message, int ret)
 {
 	fputs(PROGNAME ": ", stderr);
 	perror(message);
@@ -46,8 +59,8 @@ static int _error(char const * message, int ret)
 }
 
 
-/* list */
-static int _list(Call * calls)
+/* utilbox_list */
+static int _utilbox_list(Call * calls)
 {
 	size_t i;
 
@@ -57,8 +70,8 @@ static int _list(Call * calls)
 }
 
 
-/* usage */
-static int _usage(void)
+/* utilbox_usage */
+static int _utilbox_usage(void)
 {
 	fputs("Usage: " PROGNAME " program [arguments...]\n"
 "       " PROGNAME " -l\n"
@@ -72,34 +85,30 @@ static int _usage(void)
 /* main */
 int main(int argc, char * argv[])
 {
+	int ret;
 	char * p;
 	char const * q;
-	size_t i;
 	int o;
 
 	if((p = strdup(argv[0])) == NULL)
-		return _error(NULL, 2);
+		return _utilbox_error(NULL, 2);
 	q = basename(p);
-	for(i = 0; calls[i].name != NULL; i++)
-		if(strcmp(calls[i].name, q) == 0)
-		{
-			free(p);
-			return calls[i].call(argc, argv);
-		}
+	ret = _utilbox(q, argc, argv);
 	free(p);
+	if(ret >= 0)
+		return ret;
 	while((o = getopt(argc, argv, "l")) != -1)
 		switch(o)
 		{
 			case 'l':
-				return _list(calls);
+				return _utilbox_list(calls);
 			default:
-				return _usage();
+				return _utilbox_usage();
 		}
 	if(optind == argc)
-		return _usage();
-	for(i = 0; calls[i].name != NULL; i++)
-		if(strcmp(calls[i].name, argv[optind]) == 0)
-			return calls[i].call(argc - optind, &argv[optind]);
+		return _utilbox_usage();
+	if((ret = _utilbox(argv[optind], argc - optind, &argv[optind])) >= 0)
+		return ret;
 	fprintf(stderr, "%s: %s: command not found\n", PROGNAME, argv[optind]);
 	return 127;
 }
